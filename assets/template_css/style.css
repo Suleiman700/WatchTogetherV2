@@ -42,6 +42,7 @@
 	font-style: normal;
 	font-size: 14px;
 	color: #bcbcbc;
+ 	overflow-x: hidden;
 }
 .img {
 	max-width: 100%;
@@ -1616,7 +1617,7 @@ label {
 }
 .movie-item-row .movie-poster .overlay-btn li:first-child .btn,
 .movie-item-three .movie-poster .overlay-btn li:nth-child(2) .btn {
-    background: #da3544;
+    /*background: #da3544;*/
     color: #151517;
 }
 .movie-item-row .movie-item-two:hover .movie-poster .overlay-btn li,
@@ -2719,6 +2720,7 @@ label {
     padding: 14px 25px;
     margin-bottom: 30px;
     transition: .3s linear;
+	font-size: 1rem;
 }
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {

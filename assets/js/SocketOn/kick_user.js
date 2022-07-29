@@ -11,7 +11,7 @@ class KickUser {
             document.body.innerHTML = ''
 
             // Show alert
-            swal.fire({
+            Swal.fire({
                 title: 'Information',
                 text: "You've been kicked from the room!",
                 icon: "warning",

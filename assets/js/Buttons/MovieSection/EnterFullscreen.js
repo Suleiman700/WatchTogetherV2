@@ -31,6 +31,12 @@ class EnterFullscreen {
                 icon.classList.add('fa-expand')
                 btn_text.innerText = 'ENTER FULLSCREEN'
 
+                // Show header
+                $('header').show()
+
+                // Hide black background
+                $('#black_background').hide()
+
                 // Exit fullscreen
                 document.exitFullscreen();
             }
@@ -38,6 +44,12 @@ class EnterFullscreen {
                 // In fullscreen mode
                 icon.classList.add('fa-compress')
                 btn_text.innerText = 'EXIT FULLSCREEN'
+
+                // Hide header
+                $('header').hide()
+
+                // Show black background
+                $('#black_background').show()
 
                 // Enter fullscreen
                 document.documentElement.requestFullscreen();

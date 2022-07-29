@@ -56,3 +56,22 @@
     -o-transition: color var(--flq-transition-duration) var(--flq-transition-easing), background var(--flq-transition-duration) var(--flq-transition-easing), border-color var(--flq-transition-duration) var(--flq-transition-easing);
     transition: color var(--flq-transition-duration) var(--flq-transition-easing), background var(--flq-transition-duration) var(--flq-transition-easing), border-color var(--flq-transition-duration) var(--flq-transition-easing);
 }
+
+.html5player video {
+    height: 96vh;
+}
+
+
+.contact-form select {
+    cursor: pointer;
+    width: 100%;
+    border: 1px solid #1f1e24;
+    background: #1f1e24;
+    border-radius: 4px;
+    color: #bcbcbc;
+    box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.46);
+    font-weight: 500;
+    padding: 14px 25px;
+    margin-bottom: 30px;
+    transition: .3s linear;
+}
