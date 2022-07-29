@@ -24,10 +24,14 @@ class WelcomeSectionButtons {
     }
 
     scroll_to_join_section() {
-        document.getElementById('scroll_to_join_section').addEventListener('click', () => {
-            document.getElementById('section_join').scrollIntoView();
-            // $(window).scrollTop($('#section_join').offset().top - 10);
-        })
+        const buttons = document.querySelectorAll('.scroll_to_join_section');
+
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener('click', function(event) {
+                document.getElementById('section_join').scrollIntoView();
+                // $(window).scrollTop($('#section_join').offset().top - 10);
+            });
+        }
     }
 }
 

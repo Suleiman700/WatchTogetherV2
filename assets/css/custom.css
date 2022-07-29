@@ -30,3 +30,29 @@
 .no-scroll {
     overflow: hidden;
 }
+
+
+.form-control {
+    border: 1px solid;
+    background: #12151e !important;
+    --flq-form--padding-v: 8.75px;
+    --flq-form--padding-h: 25px;
+    --flq-form--min-height: 48px;
+    height: auto;
+    min-height: var(--flq-form--min-height);
+    padding: var(--flq-form--padding-v) var(--flq-form--padding-h);
+    font-family: var(--flq-body--font-family);
+    font-size: var(--flq-body--font-size);
+    font-weight: var(--flq-body--font-weight);
+    line-height: var(--flq-body--line-height);
+    color: hsla(var(--flq-form--color));
+    text-transform: var(--flq-body--text-transform);
+    background-color: hsla(var(--flq-form--background-color));
+    background-repeat: no-repeat;
+    background-position: var(--flq-form--padding-h) calc(var(--flq-form--padding-v) + var(--flq-form__icon--position));
+    background-size: var(--flq-form__icon--size);
+    border-radius: var(--flq-form--border-radius);
+    -webkit-transition: color var(--flq-transition-duration) var(--flq-transition-easing), background var(--flq-transition-duration) var(--flq-transition-easing), border-color var(--flq-transition-duration) var(--flq-transition-easing);
+    -o-transition: color var(--flq-transition-duration) var(--flq-transition-easing), background var(--flq-transition-duration) var(--flq-transition-easing), border-color var(--flq-transition-duration) var(--flq-transition-easing);
+    transition: color var(--flq-transition-duration) var(--flq-transition-easing), background var(--flq-transition-duration) var(--flq-transition-easing), border-color var(--flq-transition-duration) var(--flq-transition-easing);
+}
