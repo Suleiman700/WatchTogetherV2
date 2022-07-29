@@ -1,0 +1,10 @@
+.avatar_picked {
+    background: #4d4d5d !important;
+    border-radius: 25px !important;
+}
+
+#avatar_pick img {
+    cursor: pointer !important;
+    background: transparent;
+    border: 0;
+}

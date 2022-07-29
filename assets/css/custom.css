@@ -1,0 +1,32 @@
+/* PLACE YOUR CUSTOM STYLES IN THIS FILE */
+
+.title-style-three {
+    position: relative;
+    padding-bottom: 20px;
+}
+.title-style-three.text-center {
+    padding-bottom: 30px;
+}
+.title-style-three.text-center::before {
+    right: 0;
+    margin: 0 auto;
+}
+.title-style-three::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-image: url(./assets/images/title_shape.png);
+    width: 98px;
+    height: 7px;
+}
+
+
+/* Blurred background */
+.bg-blur {
+    backdrop-filter: blur(5px);
+}
+
+.no-scroll {
+    overflow: hidden;
+}

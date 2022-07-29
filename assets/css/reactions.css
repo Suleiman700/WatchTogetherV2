@@ -1,0 +1,34 @@
+.reactions-box {
+    position: fixed;
+    z-index: 120;
+    bottom: 5px;
+    left: 0;
+}
+
+
+#reactions_area {
+    overflow-y: hidden;
+}
+
+/* Buttons that show/hide reactions area */
+#toggle_reactions_area {
+    font-size: 1.2rem;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 0, 0, 0.44);
+    width: auto;
+    background: rgba(0, 0, 0, 0.5);
+    margin: 0 5px;
+}
+
+
+.reaction-icon {
+    font-size: 1.5rem;
+    border-radius: 25px;
+    border: 1px solid transparent;
+    width: auto;
+    background: transparent;
+}
+
+.reaction-icon:hover {
+    background: red;
+}

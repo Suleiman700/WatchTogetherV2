@@ -1,0 +1,15 @@
+.fullscreen-movie-controls {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, -10%);
+    margin: 0 auto;
+    z-index: 105;
+}
+
+.fullscreen-movie-controls-hidden {
+    bottom: -50px;
+}
+
+.fullscreen-movie-controls-shown {
+    bottom: 0;
+}

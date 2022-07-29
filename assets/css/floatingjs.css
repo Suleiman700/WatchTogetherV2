@@ -1,0 +1,4 @@
+.float-container {
+    z-index: 500;
+    pointer-events: none;
+}
