@@ -6,6 +6,7 @@ class WelcomeSectionButtons {
     constructor() {
         this._random_btn_id = 'random_room_number'
 
+
         this.random_room_number()
         this.scroll_to_join_section()
     }
