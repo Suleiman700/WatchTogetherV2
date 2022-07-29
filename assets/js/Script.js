@@ -2,6 +2,8 @@ import socket_class from './Socket.js'
 import './Rooms/Join.js'
 import './Inputs/RoomNum.js'
 
+import './PlyrOverlay.js'
+
 // General
 import './AvatarPicker.js'
 import './Chat.js'

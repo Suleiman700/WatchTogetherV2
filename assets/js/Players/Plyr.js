@@ -1,6 +1,7 @@
 import socket_c from "../Socket.js";
 import Players_C from "./PlayersController.js";
 import UsersMovieState_C from '../UsersMovieState.js';
+import PlyrOverlay from '../PlyrOverlay.js';
 
 class PlyrClass {
     constructor() {
@@ -154,10 +155,17 @@ class PlyrClass {
     on_load_finished_load_movie() {
         this._player.on('canplaythrough', (event) => {
             UsersMovieState_C.set_movie_state('Watching')
+
+            // Hide overlay
+            PlyrOverlay.hide()
         })
 
         this._player.on('waiting', (event) => {
             UsersMovieState_C.set_movie_state('Loading')
+
+            // Show overlay
+            PlyrOverlay.set_text('Loading...')
+            PlyrOverlay.show()
         })
     }
 }
