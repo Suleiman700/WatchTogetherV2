@@ -56,7 +56,10 @@
 
     <link rel="stylesheet" href="assets/css/Plyr.css" />
 
+    <link rel="stylesheet" href="assets/css/MovieStory.css" />
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body class="bg-dark" style="background-image: url('assets/template_img/bg/pricing_bg.jpg');">
 
@@ -666,19 +669,39 @@
 
 <!-- Movie Story Modal -->
 <div class="modal fade bg-blur" id="modal_movie_story" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content bg-dark">
-            <div class="modal-header">
-                <h5 class="modal-title">Movie Story</h5>
-                <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal" aria-label="Close">
-                    <i class="fa fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body text-center">
-                <p class="text-white" id="movie_story" dir="auto" style="font-size: 1rem;"></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-xs" data-dismiss="modal">Close</button>
+    <div class="modal-dialog modal-dialog-centered" role="document" style="pointer-events: all;">
+        <div class="container">
+            <div class="cellphone-container" style="height: 100vh;">
+                <div class="movie">
+                    <div class="menu" style="cursor: pointer;" data-dismiss="modal"><i class="fa fa-times"></i></div>
+                    <div class="movie-img" id="movie_image"></div>
+                    <div class="text-movie-cont">
+                        <div class="mr-grid">
+                            <div class="col1">
+                                <h1 id="movie_name">Interstellar</h1>
+                                <ul class="movie-gen">
+                                    <li><span class="text-danger">Length:</span> <span id="movie_length"></span></li>
+                                    <li><span class="text-danger">Genres:</span> <span id="movie_genres"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mr-grid summary-row">
+                            <div class="col2">
+                                <h5>SUMMARY</h5>
+                            </div>
+                        </div>
+                        <div class="mr-grid">
+                            <div class="col1">
+                                <p class="movie-description" id="movie_story" dir="auto"></p>
+                            </div>
+                        </div>
+                        <div class="mr-grid action-row d-flex justify-content-center">
+                            <div class="watch-btn">
+                                <button class="btn" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

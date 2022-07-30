@@ -204,11 +204,18 @@ class MoviesTable {
             const movie_name = $(e.target).data('movie-name')
 
             // Get movie story from object based on movie name
-            const movie_story = SearchTable_C._search_results.find(movie => movie.name === movie_name)['story']
+            const movie_details = SearchTable_C._search_results.find(movie => movie.name === movie_name)
 
             // Show movie story modal
             $('#modal_movie_story').modal('show')
-            $('#modal_movie_story #movie_story').text(movie_story)
+            $('#modal_movie_story #movie_image').css('background-image', `url(${movie_details['poster']})`)
+
+
+            $('#modal_movie_story #movie_name').text(movie_details['name'])
+            $('#modal_movie_story #movie_length').text((movie_details['length']!=='0')? movie_details['length']:'-')
+            $('#modal_movie_story #movie_genres').text((movie_details['genre'].length)? movie_details['genre'].join(', '):'-')
+            $('#modal_movie_story #movie_story').text(movie_details['story'])
+
         });
     }
 
