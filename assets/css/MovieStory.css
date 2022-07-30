@@ -18,11 +18,11 @@
     z-index: 999;
 }
 
-i {
-    font-size: 40px;
-    color: $ brand-color;
-    filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, .5));
-}
+/*i {*/
+/*    font-size: 40px;*/
+/*    color: $ brand-color;*/
+/*    filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, .5));*/
+/*}*/
 
 .movie-img {
     width: 100%;
@@ -65,33 +65,33 @@ i {
 
 .text-movie-cont {
     padding: 0px 12px;
-    text-align: justify;
+    /*text-align: justify;*/
 }
 
 .action-btn {
     text-align: right;
 }
 
-i {
-    color: $ brand-color;
-    font-size: 28px;
-    text-align: right;
-}
+/*i {*/
+/*    color: $ brand-color;*/
+/*    font-size: 28px;*/
+/*    text-align: right;*/
+/*}*/
 
 
-.watch-btn {
+/*.watch-btn {*/
 
-h3 {
+/*h3 {*/
 
-i {
-    font-size: 14px;
-    margin-right: 2px;
-    position: relative;
-    float: left;
-    line-height: 1;
-}
+/*i {*/
+/*    font-size: 14px;*/
+/*    margin-right: 2px;*/
+/*    position: relative;*/
+/*    float: left;*/
+/*    line-height: 1;*/
+/*}*/
 
-}
+/*}*/
 display:block
 
 ;
