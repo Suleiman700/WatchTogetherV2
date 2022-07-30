@@ -97,7 +97,7 @@ class MoviesTable {
                                 <i class="fas fa-star"></i>
                             </li>
                             <li><a href="javascript:void(0)" class="popup-video btn btn-outline btn-danger text-danger movie_watch_now" data-uniqueid="${movie_unique_id}">Watch Now</a></li>
-                            ${(movie_story.length > 0)? '<li><a href="javascript:void(0)" class="popup-video btn btn-outline btn-danger text-danger show_movie_story" data-movie-name="${movie_name}">Read Story</a></li>':''}
+                            ${(movie_story.length > 0)? `<li><a href="javascript:void(0)" class="popup-video btn btn-outline btn-danger text-danger show_movie_story" data-movie-name="${movie_name}">Read Story</a></li>`:''}
                         </ul>
                     </div>
                     <div class="movie-content">
@@ -172,7 +172,7 @@ class MoviesTable {
                                 <i class="fas fa-star"></i>
                             </li>
                             <li><a href="javascript:void(0)" class="popup-video btn btn-outline btn-danger text-danger movie_watch_now" data-uniqueid="${movie_unique_id}">Watch Now</a></li>
-                            ${(movie_story.length > 0)? '<li><a href="javascript:void(0)" class="popup-video btn btn-outline btn-danger text-danger show_movie_story" data-movie-name="${movie_name}">Read Story</a></li>':''}
+                            ${(movie_story.length > 0)? `<li><a href="javascript:void(0)" class="popup-video btn btn-outline btn-danger text-danger show_movie_story" data-movie-name="${movie_name}">Read Story</a></li>`:''}
                         </ul>
                     </div>
                     <div class="movie-content">
