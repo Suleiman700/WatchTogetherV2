@@ -29,6 +29,8 @@ import './SocketOn/sync_users_with_host_time.js'
 import './SocketOn/set_player_time.js'
 import './SocketOn/show_movies.js'
 import './SocketOn/show_searched_movies.js'
+import './SocketOn/notify_user_joined_room.js'
+import './SocketOn/notify_user_left_room.js'
 
 // Welcome Section Buttons
 import './Buttons/WelcomeSection.js'

@@ -18,6 +18,7 @@ class SetUsersMovieLoadingState {
             const users = data['users']
             for (const user of users) {
                 const state_name = user['movie_state']
+                if (state_name === undefined) return
                 const state_data = UsersMovieState_C.get_state_data(state_name)
                 const text_area = document.getElementById(`${user['username']}_movie_state`)
 

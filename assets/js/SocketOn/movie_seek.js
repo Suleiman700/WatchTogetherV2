@@ -12,7 +12,7 @@ class MovieSeek {
         socket_class._socket.on('movie_seek', (data) => {
             const currTime = data.current_time
             const clientTime = Players_C.current_player_get_time()
-            if (clientTime < currTime - .2 || clientTime > currTime + .2) {
+            if (clientTime < currTime - .5 || clientTime > currTime + .5) {
                 Players_C.current_player_set_time(data.current_time)
             }
         })

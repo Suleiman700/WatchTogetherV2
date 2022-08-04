@@ -9,6 +9,7 @@ class Chat {
         this._chat_btn = 'toggle_chat' // Button that toggles chat
         this._chat_opened = false
         this._close_chat_btn = 'close_chat' // Button to close chat
+        this._close_chat_btn2 = 'close_chat2' // Button to close chat
         this._send_msg_btn = 'send_message' // Button to send message
         this._message_input = 'message' // Message input
         this._chat_messages = 'chat_messages' // Div that contains chat messages
@@ -54,12 +55,24 @@ class Chat {
             this.hide()
         })
 
+        document.getElementById(this._close_chat_btn2).addEventListener('click', () => {
+            // Show main chat open button
+            document.getElementById(this._chat_btn).style.display = 'block'
+
+            // Hide chat block
+            this.hide()
+        })
+
         // On chat toggle button
         document.getElementById(this._chat_btn).addEventListener('click', () => {
+            // Hide main chat open button
+            document.getElementById(this._chat_btn).style.display = 'none'
+
             // If chat is opened
             if (this._chat_opened) {
                 this.hide()
-            } else {
+            }
+            else {
                 this.show()
             }
         })
@@ -115,6 +128,26 @@ class Chat {
             }
         }
 
+
+        document.getElementById(this._chat_messages).innerHTML += html
+    }
+
+    /**
+     * Add new info message to chat
+     * Example: User Has Left The Room
+     * @param _message {String}
+     */
+    add_info_message(_message) {
+        const time = Time_C.time_with_seconds()
+        let html = `
+            <div class="d-flex justify-content-center p-3">
+                <div class="message-received p-3 text-center">
+                    ${_message}
+                    <br>
+                    ${time}
+                </div>
+            </div>
+        `
 
         document.getElementById(this._chat_messages).innerHTML += html
     }

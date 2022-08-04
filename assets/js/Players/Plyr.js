@@ -14,6 +14,7 @@ class PlyrClass {
             controls: ['progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay']
         });
         this.on_seek()
+        this.on_timeupdate()
         this.on_play()
         this.on_pause()
         this.on_choose()
@@ -64,6 +65,19 @@ class PlyrClass {
             const instance = event.detail.plyr;
             const current_time = instance.currentTime
             socket_c._socket.emit('movie_seek', {current_time}, function(callback) {})
+        });
+    }
+
+    // On seeking
+    on_timeupdate() {
+        this._player.on('timeupdate', (event) => {
+            const instance = event.detail.plyr;
+            const current_time = instance.currentTime
+
+            const clientTime = Players_C.current_player_get_time()
+            if (clientTime < current_time - .5 || clientTime > current_time + .5) {
+                socket_c._socket.emit('movie_seek', {current_time}, function(callback) {})
+            }
         });
     }
 

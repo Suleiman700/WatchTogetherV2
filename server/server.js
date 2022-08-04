@@ -356,6 +356,11 @@ io.on('connection', (socket, test) => {
             'room_host_name': io.sockets.adapter.rooms[`room-${socket.roomnum}`].hostName
         })
 
+        // Notify users about user joined the room
+        io.sockets.in(`room-${socket.roomnum}`).emit('notify_user_joined_room', {
+            'user_username': socket.username,
+        })
+
 
         // console.log(io.sockets.adapter.rooms[`room-${socket.roomnum}`].users)
     });
@@ -538,6 +543,11 @@ io.on('connection', (socket, test) => {
     // Disconnect
     socket.on('disconnect', function (data) {
         if (socket.username === undefined) return
+
+        // Notify users about user left the room
+        io.sockets.in(`room-${socket.roomnum}`).emit('notify_user_left_room', {
+            'user_username': socket.username,
+        })
 
         // Delete user room
         UsersRooms.delete_user_room(socket.id)
