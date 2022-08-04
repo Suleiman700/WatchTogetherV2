@@ -108,19 +108,26 @@ class Chat {
         const avatar_images_path = AvatarPicker_C._images_path
         let html = ``
 
+        // Check if chat message contains UTF8
+        let dir = 'ltr'
+        for (var i = 0; i < message.length; i++) {
+            if (message.charCodeAt(i) > 127) dir = 'rtl'
+        }
+
         // Check if received or sent message
         const user_username = Join_C._username
         if (user_username === sender) {
             html = `
                 <div class="d-flex justify-content-end p-3">
-                    <div class="message-sent mr-2 p-3"><strong><ins>${sender}</ins></strong> <span class="text-muted">${time}</span><br>${message}</div>
+                    <div class="message-sent mr-2 p-3" dir="${dir}"><strong><ins>${sender}</ins></strong> <span class="text-muted">${time}</span><br>${message}</div>
                     <img src="${avatar_images_path}${avatar}" width="30" height="30">
                 </div>`
-        } else {
+        }
+        else {
             html = `
                 <div class="d-flex flex-row p-3">
                     <img src="${avatar_images_path}${avatar}" width="30" height="30">
-                    <div class="message-received p-3"><strong><ins>${sender}</ins></strong> <span class="text-muted">${time}</span><br>${message}</div>
+                    <div class="message-received p-3" dir="${dir}"><strong><ins>${sender}</ins></strong> <span class="text-muted">${time}</span><br>${message}</div>
                 </div>`
 
             if (!this._chat_opened) {
