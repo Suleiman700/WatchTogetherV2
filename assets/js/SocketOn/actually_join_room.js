@@ -4,6 +4,7 @@ import RoomData_C from '../Rooms/RoomData.js'
 import Players_C from '../Players/PlayersController.js'
 import Chat_C from '../Chat.js';
 import Reactions_C from '../Reactions.js';
+import Host_C from '../Buttons/MovieSection/Host.js';
 
 /*
     Event that happens after the user sends a room join request, Then the server emits [actually_join_room]
@@ -17,6 +18,7 @@ class ActuallyJoinRoom {
     event() {
         socket_class._socket.on('actually_join_room', (data) => {
             const avatar = data['avatar']
+            const room_host_name = data['room_host_name']
             const username = data['username']
             const room_number = data['room_number']
             const player_id = data['current_player']
@@ -24,6 +26,12 @@ class ActuallyJoinRoom {
 
             // If not joined yet
             if (!Join_C._joined) {
+                // Set room host name
+                Host_C.set_host_name(room_host_name)
+
+                // Save room number
+                RoomData_C.save_room_number(room_number)
+
                 // Set client current player
                 Players_C.set_current_player(player_id)
                 Players_C.hide_all()

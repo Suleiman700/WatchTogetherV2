@@ -243,6 +243,7 @@ io.on('connection', (socket, test) => {
             if (io.sockets.adapter.rooms[`room-${socket.roomnum}`].users.find(user => user.username === socket.username)) {
                 callback({
                     state: false,
+                    cause: 'username_is_taken',
                     msg: 'Please choose another username'
                 })
                 do_join = false
@@ -322,7 +323,11 @@ io.on('connection', (socket, test) => {
                     break;
             }
 
+            // Get room host name
+            const room_host_name = io.sockets.adapter.rooms[`room-${socket.roomnum}`].hostName
+
             socket.emit('actually_join_room', {
+                'room_host_name': room_host_name,
                 'username': socket.username,
                 'room_number': socket.roomnum,
                 'current_player': current_player,
@@ -345,6 +350,25 @@ io.on('connection', (socket, test) => {
             io.sockets.in(`room-${socket.roomnum}`).emit('show_movies', {
                 'movies_list': Movies._movies_list,
             })
+
+
+            // ================================================================
+            // Ask the host to sync room users - Used to sync users who have just joined the room [Maybe not working]
+
+            // Get room host data
+            // const room_host_name = io.sockets.adapter.rooms[`room-${socket.roomnum}`].hostName
+
+            // Get room host socket id
+            const users = io.sockets.adapter.rooms[`room-${socket.roomnum}`].users
+            if (users === undefined) return
+            console.log(users)
+            const host_socket_id = users.find(user => user.username === room_host_name)['socket_id']
+
+            // Get current room player id
+            const current_room_player = io.sockets.adapter.rooms[`room-${socket.roomnum}`].currentPlayer
+
+            io.to(host_socket_id).emit('sync_users_with_host_time', {'player_id': current_room_player});
+            // ================================================================
         }
 
         // console.log(io.sockets.adapter.rooms[`room-${socket.roomnum}`].users)
@@ -549,14 +573,41 @@ io.on('connection', (socket, test) => {
             'user_username': socket.username,
         })
 
+        const room_users = io.sockets.adapter.rooms[`room-${socket.roomnum}`].users
+
+        // Check if the user who left is the room host > Set new room host
+        const orig_room_host_name = io.sockets.adapter.rooms[`room-${socket.roomnum}`].hostName
+        if (socket.username === orig_room_host_name) {
+            // This will get the first found user in room users
+            const new_host_data = room_users.find(user => user.username !== socket.username)
+
+            // Prevent crash if not found
+            if (new_host_data === undefined || !new_host_data.hasOwnProperty("username")) return
+
+            // Set new host username
+            io.sockets.adapter.rooms[`room-${socket.roomnum}`].hostName = new_host_data['username']
+
+            // Update host username for users
+            io.sockets.in(`room-${socket.roomnum}`).emit('set_new_host_username', {
+                'new_host_username': new_host_data['username'],
+            })
+        }
+
+
         // Delete user room
         UsersRooms.delete_user_room(socket.id)
 
         // Check if username already in room users
-        if (io.sockets.adapter.rooms[`room-${socket.roomnum}`].users.find(user => user.username === socket.username)) {
+        if (room_users.find(user => user.username === socket.username)) {
             // Delete user from room users
-            io.sockets.adapter.rooms[`room-${socket.roomnum}`].users = io.sockets.adapter.rooms[`room-${socket.roomnum}`].users.filter(user => user.username !== socket.username)
+            io.sockets.adapter.rooms[`room-${socket.roomnum}`].users = room_users.filter(user => user.username !== socket.username)
         }
+
+        // // Check if username already in room users
+        // if (io.sockets.adapter.rooms[`room-${socket.roomnum}`].users.find(user => user.username === socket.username)) {
+        //     // Delete user from room users
+        //     io.sockets.adapter.rooms[`room-${socket.roomnum}`].users = io.sockets.adapter.rooms[`room-${socket.roomnum}`].users.filter(user => user.username !== socket.username)
+        // }
 
         // Display count of online users
         let online_users_count = 0

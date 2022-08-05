@@ -383,6 +383,15 @@
                 </div>
             </div>
 
+            <div class="pt-3 text-center" style="margin: auto;">
+                <div class="col-12">
+                    <div style="/*width: 75%; overflow: auto; white-space: nowrap;*/">
+                        <p class="btn btn-primary btn-xs mt-1" id="room_host_btn">Host: <span id="room_host_name">~</span></p>
+                        <button class="btn btn-primary btn-xs mt-1" id="invite">Invite <i class="fa fa-user-plus" style="margin: 0 3px;"></i></button>
+                    </div>
+                </div>
+            </div>
+
             <div class="row text-center" style="margin: auto; width: 100%">
                 <div class="col-12 pt-3">
                     <div class="btn-group" role="group" aria-label="Basic example" style="width: 100%;">
@@ -675,6 +684,29 @@
     </div>
 </footer>
 <!-- footer-area-end -->
+
+<!-- Invite Modal -->
+<!-- Modal -->
+<div class="modal fade" id="modal_invite" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Invite</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="h6 text-center my-3">Invite friends by copying and sending them room link :)</p>
+                <input type="text" class="form-control border-primary" value="Hello World" id="room_link" readonly style="border-radius: 15px !important;" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="copy_room_link">Copy Link</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Movie Story Modal -->
 <div class="modal fade bg-blur" id="modal_movie_story" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false">

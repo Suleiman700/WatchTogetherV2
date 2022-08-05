@@ -1,7 +1,8 @@
 
 class SocketClass {
     constructor() {
-        this._path = 'http://watch-together.online'
+        this._path = 'http://localhost'
+        // this._path = 'http://watch-together.online'
         this._port = 3001
 
         // Connect to socket

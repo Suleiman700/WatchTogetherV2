@@ -1,6 +1,6 @@
 import socket_class from './Socket.js'
 import './Rooms/Join.js'
-import './Inputs/RoomNum.js'
+import RoomNum_C from './Inputs/RoomNum.js'
 
 import './PlyrOverlay.js'
 
@@ -31,6 +31,7 @@ import './SocketOn/show_movies.js'
 import './SocketOn/show_searched_movies.js'
 import './SocketOn/notify_user_joined_room.js'
 import './SocketOn/notify_user_left_room.js'
+import './SocketOn/set_new_host_username.js'
 
 // Welcome Section Buttons
 import './Buttons/WelcomeSection.js'
@@ -41,6 +42,7 @@ import './Buttons/MovieSection/Pause.js'
 import './Buttons/MovieSection/Sync.js'
 import './Buttons/MovieSection/SetSource.js'
 import './Buttons/MovieSection/EnterFullscreen.js'
+import './Buttons/MovieSection/Invite.js'
 
 // Players
 import PlayerControllerClass from './Players/PlayersController.js'
@@ -64,3 +66,14 @@ console.log('here')
 function check_socket_connection() {
     socket_class.check_if_connected()
 }
+
+// Check if url has room parameter
+$(document).ready(function() {
+    if (window.location.href.indexOf("room") > -1) {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const room_number = urlParams.get('room')
+
+        RoomNum_C.set_value(room_number)
+    }
+});

@@ -2,7 +2,9 @@ import socket_c from "../Socket.js";
 import Join_C from '../Rooms/Join.js'
 
 class RoomData {
-    constructor() {}
+    constructor() {
+        this.room_number = ''
+    }
 
     // Get room host name
     get_host_name() {
@@ -14,6 +16,14 @@ class RoomData {
                 // document.getElementById('data_host_name').innerText = callback.host_name
             }
         })
+    }
+
+    /**
+     * Receive room number and save it for later uses
+     * @param _room_number {String}
+     */
+    save_room_number(_room_number) {
+        this.room_number = _room_number
     }
 }
 

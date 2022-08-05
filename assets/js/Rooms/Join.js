@@ -44,6 +44,13 @@ class Join {
             if (username.length && room_num.length) {
                 // Send join request
                 socket_c._socket.emit('join_room', {room_num, username, avatar}, function(callback) {
+
+                    // Check if callback contains error message
+                    if (!callback['state']) {
+                        if (callback['cause'] === 'username_is_taken') {
+                            username_c.set_alert_text(callback['msg'])
+                        }
+                    }
                     console.log(callback)
                     // This should only call back if the client is the host
                     // console.log(callback)

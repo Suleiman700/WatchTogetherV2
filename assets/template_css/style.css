@@ -244,8 +244,8 @@ label {
 .btn {
     user-select: none;
     -moz-user-select: none;
-    background: #12151e none repeat scroll 0 0;
-    border: 2px solid #da3544;
+    /*background: #12151e none repeat scroll 0 0;*/
+    /*border: 2px solid #da3544;*/
     border-radius: 50px;
     color: #e3dfdf;
     cursor: pointer;
