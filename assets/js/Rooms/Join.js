@@ -14,7 +14,9 @@ class Join {
     }
 
     join_room() {
-        document.getElementById(this._join_btn_id).addEventListener('click', () => {
+        document.getElementById(this._join_btn_id).addEventListener('click', (e) => {
+            e.preventDefault()
+
             // Get username
             const username = username_c.get_username()
 
