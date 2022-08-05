@@ -23,30 +23,53 @@ class Invite {
     }
 
     set_room_link() {
-        document.getElementById("room_link").value = `${Socket_C._path}/room=${RoomData_C.room_number}`
+        document.getElementById("room_link").value = `${Socket_C._path}?room=${RoomData_C.room_number}`
     }
 
     // When user clicks the copy button inside the modal
     on_copy_click() {
         document.getElementById(this.copy_btn_id).addEventListener('click', () => {
             /* Get the text field */
-            const copyText = document.getElementById("room_link");
+            var copyText = document.getElementById("room_link");
 
-            /* Select the text field */
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); /* For mobile devices */
 
-            /* Copy the text inside the text field */
-            navigator.clipboard.writeText(copyText.value);
+            // return a promise
+            function copyToClipboard(textToCopy) {
+                // navigator clipboard api needs a secure context (https)
+                if (navigator.clipboard && window.isSecureContext) {
+                    // navigator clipboard api method'
+                    return navigator.clipboard.writeText(textToCopy);
+                } else {
+                    // text area method
+                    let textArea = document.createElement("textarea");
+                    textArea.value = textToCopy;
+                    // make the textarea out of viewport
+                    textArea.style.position = "fixed";
+                    textArea.style.left = "-999999px";
+                    textArea.style.top = "-999999px";
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    return new Promise((res, rej) => {
+                        // here the magic happens
+                        document.execCommand('copy') ? res() : rej();
+                        textArea.remove();
+                    });
+                }
+            }
+
+            copyToClipboard(`${Socket_C._path}?room=${RoomData_C.room_number}`)
+                .then(() => {
+                    document.getElementById(this.copy_btn_id).innerText = 'Copied!'
+                    setTimeout(() => {
+                        document.getElementById(this.copy_btn_id).innerText = 'Copy Link'
+                    }, 500)
+                })
+                .catch(() => console.log('error'));
 
             // Tell user that room link has been copied
-            document.getElementById(this.copy_btn_id).innerText = 'Copied!'
-            setTimeout(() => {
-                document.getElementById(this.copy_btn_id).innerText = 'Copy Link'
-            }, 500)
-
             /* Alert the copied text */
-            // alert("Copied the text: " + copyText.value);
+            // alert("Room link has been copied!");
         })
     }
 }
