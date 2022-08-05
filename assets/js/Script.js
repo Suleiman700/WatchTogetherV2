@@ -60,3 +60,7 @@ import './Orientation.js'
 // })
 
 console.log('here')
+
+function check_socket_connection() {
+    socket_class.check_if_connected()
+}

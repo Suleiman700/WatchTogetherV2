@@ -18,13 +18,15 @@ class ShowSearchedMovies {
             // Store search results
             MoviesSearch_C._search_results = movies
 
-            // if (movies.length > 0) {
-            //     // Show search input
-            //     MoviesSearch_C.toggle_search_input(true)
-            // } else {
-            //     // Hide search input
-            //     MoviesSearch_C.toggle_search_input(false)
-            // }
+            if (movies.length > 0) {
+                // Show search input
+                // MoviesSearch_C.toggle_search_input(true)
+            } else {
+                // Show no result section
+                MoviesSearch_C.show_no_results(true)
+                // Hide search input
+                // MoviesSearch_C.toggle_search_input(false)
+            }
 
             // Hide loading spinner
             MoviesTable_C.show_spinner(false)

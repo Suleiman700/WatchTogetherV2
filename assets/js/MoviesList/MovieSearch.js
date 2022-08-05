@@ -9,6 +9,7 @@ class MovieSearch {
         this._search_results = [] // Store movies search results
         this._movie_search_field = 'movie_search_field' // ID of search input
         this._movie_search_field_shown = false // Show or hide search input
+        this.no_result_section = 'no_results' // The ID of no result section
 
         this.on_genre_select()
         this.on_rating_select()
@@ -91,6 +92,9 @@ class MovieSearch {
 
     on_search() {
         document.getElementById('movies_search').addEventListener('click', (e) => {
+            // Hide no result section
+            this.show_no_results(false)
+
             // Show loading spinner
             MoviesTable_C.show_spinner(true)
 
@@ -131,6 +135,19 @@ class MovieSearch {
             //     }
             // });
         })
+    }
+
+    /**
+     * Show or hide no result section
+     * @param _option {Boolean}
+     */
+    show_no_results(_option) {
+        if (_option) {
+            document.getElementById(this.no_result_section).style.display = 'block'
+        }
+        else {
+            document.getElementById(this.no_result_section).style.display = 'none'
+        }
     }
 
     // When a user search for a movie by name in the input field
