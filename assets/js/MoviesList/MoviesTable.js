@@ -75,12 +75,12 @@ class MoviesTable {
         for (const movie of SearchTable_C._search_results) {
             const movie_name = movie['name']
             const movie_poster = movie['poster']
-            const movie_year = movie['year']
+            const movie_year = movie['year'].length === '4'? movie['year']:'No Data'
             const movie_language = movie['language']
-            const movie_length = movie['length']
+            const movie_length = movie['length'] !== '0'? movie['length']:'No Data'
             const movie_link = movie['link']
             const movie_unique_id = movie['unique_id']
-            const movie_rating = movie['rating']
+            const movie_rating = movie['rating']??'No Data'
             const movie_story = movie['story']
 
             $(section).append(`
@@ -150,12 +150,12 @@ class MoviesTable {
         for (const movie of searched_movies) {
             const movie_name = movie['name']
             const movie_poster = movie['poster']
-            const movie_year = movie['year']
+            const movie_year = movie['year'].length === '4'? movie['year']:'No Data'
             const movie_language = movie['language']
-            const movie_length = movie['length']
+            const movie_length = movie['length'] !== '0'? movie['length']:'No Data'
             const movie_link = movie['link']
             const movie_unique_id = movie['unique_id']
-            const movie_rating = movie['rating']
+            const movie_rating = movie['rating']??'No Data'
             const movie_story = movie['story']
 
             $(section).append(`

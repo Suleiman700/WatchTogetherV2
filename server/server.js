@@ -452,7 +452,7 @@ io.on('connection', (socket, test) => {
 
         function callBack(search_results) {
             // Slice object
-            const sliced_results = search_results.slice(0, 100)
+            const sliced_results = search_results.slice(0, 30)
             // Send movies to user
             socket.emit('show_searched_movies', {'movies': sliced_results})
         }
