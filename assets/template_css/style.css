@@ -2714,7 +2714,7 @@ label {
     border: 1px solid #1f1e24;
     background: #1f1e24;
     border-radius: 4px;
-    color: #bcbcbc;
+    color: white !important;
     box-shadow: 0px 1px 7px 0px rgba(0, 0, 0, 0.46);
     font-weight: 500;
     padding: 14px 25px;

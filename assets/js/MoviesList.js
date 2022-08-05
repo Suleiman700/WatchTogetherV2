@@ -157,8 +157,8 @@ class MoviesList {
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                             </li>
-                            <li><a href="javascript:void(0)" class="popup-video btn btn-outline btn-danger text-danger movie_watch_now" data-link="${movie_link}">Watch Now</a></li>
-                            <li><a href="javascript:void(0)" class="popup-video btn btn-outline btn-danger text-danger show_movie_story" data-movie-name="${movie_name}">Read Story</a></li>
+                            <li><a href="javascript:void(0)" class="popup-video btn btn-outline-danger text-danger movie_watch_now" data-link="${movie_link}">Watch Now</a></li>
+                            <li><a href="javascript:void(0)" class="popup-video btn btn-outline-danger text-danger show_movie_story" data-movie-name="${movie_name}">Read Story</a></li>
                         </ul>
                     </div>
                     <div class="movie-content">
@@ -209,8 +209,8 @@ class MoviesList {
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                             </li>
-                            <li><a href="javascript:void(0)" class="popup-video btn btn-outline btn-danger text-danger movie_watch_now" data-link="${movie_link}">Watch Now</a></li>
-                            <li><a href="javascript:void(0)" class="popup-video btn btn-outline btn-danger text-danger show_movie_story" data-movie-name="${movie_name}">Read Story</a></li>
+                            <li><a href="javascript:void(0)" class="popup-video btn btn-outline-danger text-danger movie_watch_now" data-link="${movie_link}">Watch Now</a></li>
+                            <li><a href="javascript:void(0)" class="popup-video btn btn-outline-danger text-danger show_movie_story" data-movie-name="${movie_name}">Read Story</a></li>
                         </ul>
                     </div>
                     <div class="movie-content">

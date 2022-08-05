@@ -73,9 +73,10 @@ class MoviesTable {
         // Clear all movies
         section.innerHTML = ''
         for (const movie of SearchTable_C._search_results) {
+            console.log(movie)
             const movie_name = movie['name']
             const movie_poster = movie['poster']
-            const movie_year = movie['year'].length === '4'? movie['year']:'No Data'
+            const movie_year = movie['year'].length === 4? movie['year']:'No Data'
             const movie_language = movie['language']
             const movie_length = movie['length'] !== '0'? movie['length']:'No Data'
             const movie_link = movie['link']
@@ -96,8 +97,8 @@ class MoviesTable {
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                             </li>
-                            <li><a href="javascript:void(0)" class="popup-video btn btn-outline btn-danger text-danger movie_watch_now" data-uniqueid="${movie_unique_id}">Watch Now</a></li>
-                            ${(movie_story.length > 0)? `<li><a href="javascript:void(0)" class="popup-video btn btn-outline btn-danger text-danger show_movie_story" data-movie-name="${movie_name}">Read Story</a></li>`:''}
+                            <li><a href="javascript:void(0)" class="popup-video btn btn-outline-danger text-white movie_watch_now" data-uniqueid="${movie_unique_id}">Watch Now</a></li>
+                            ${(movie_story.length > 0)? `<li><a href="javascript:void(0)" class="popup-video btn btn-outline-danger text-white show_movie_story" data-movie-name="${movie_name}">Read Story</a></li>`:''}
                         </ul>
                     </div>
                     <div class="movie-content">
@@ -150,7 +151,7 @@ class MoviesTable {
         for (const movie of searched_movies) {
             const movie_name = movie['name']
             const movie_poster = movie['poster']
-            const movie_year = movie['year'].length === '4'? movie['year']:'No Data'
+            const movie_year = movie['year'].length === 4? movie['year']:'No Data'
             const movie_language = movie['language']
             const movie_length = movie['length'] !== '0'? movie['length']:'No Data'
             const movie_link = movie['link']
