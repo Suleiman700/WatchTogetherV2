@@ -88,7 +88,7 @@ class PlyrClass {
         //     Players_C.play()
         //     UsersMovieState_C.set_movie_state('Watching')
         // });
-        if (!this._player.playing) {
+        if (1===1 || !this._player.playing) {
             this._player.on('play', (event) => {
                 // this._player.fullscreen.exit()
                 // Players_C.play()
@@ -106,7 +106,7 @@ class PlyrClass {
         //     UsersMovieState_C.set_movie_state('Paused')
         // });
 
-        if (!this._player.paused) {
+        if (1===1 || !this._player.paused) {
             this._player.on('pause', (event) => {
                 // this._player.fullscreen.exit()
                 // Players_C.pause()
