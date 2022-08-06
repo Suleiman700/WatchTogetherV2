@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e2d6378f-8d28-43a1-adf4-494a872c3eb7" name="WatchTogether" url="http://194.163.132.253">
+        <fileTransfer rootFolder="/var/www/html/WatchTogether" accessType="SFTP" host="194.163.132.253" port="22" sshConfigId="c0dcf88e-c896-41e1-ba78-47920702eb9b" sshConfig="root@194.163.132.253:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

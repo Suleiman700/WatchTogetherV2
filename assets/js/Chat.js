@@ -110,8 +110,12 @@ class Chat {
 
         // Check if chat message contains UTF8
         let dir = 'ltr'
+        let textAlign = 'text-left'
         for (var i = 0; i < message.length; i++) {
-            if (message.charCodeAt(i) > 127) dir = 'rtl'
+            if (message.charCodeAt(i) > 127) {
+                dir = 'rtl'
+                textAlign = 'text-right'
+            }
         }
 
         // Check if received or sent message
@@ -119,7 +123,7 @@ class Chat {
         if (user_username === sender) {
             html = `
                 <div class="d-flex justify-content-end p-3">
-                    <div class="message-sent mr-2 p-3" dir="${dir}"><strong><ins>${sender}</ins></strong> <span class="text-muted">${time}</span><br>${message}</div>
+                    <div class="message-sent mr-2 p-3 ${textAlign}" dir="${dir}"><strong><ins>${sender}</ins></strong> <span class="text-muted">${time}</span><br>${message}</div>
                     <img src="${avatar_images_path}${avatar}" width="30" height="30">
                 </div>`
         }
