@@ -21,6 +21,10 @@ class Chat {
         this._chat_sound_enabled = true // Boolean, Enable or Disable message notification sound
         this._notification_sound = './assets/audio/chat_notification_sound.mp3'
 
+        // Chat spam protection
+        this._las_sent_msg_time = 0 // The time of the last sent message
+
+
         // Set default settings in chat settings modal
         this.set_default_settings()
 
@@ -81,10 +85,57 @@ class Chat {
         document.getElementById(this._send_msg_btn).addEventListener('click', () => {
             const message = document.getElementById(this._message_input).value
             if (message.length) {
-                // Clear input
-                document.getElementById(this._message_input).value = ''
+                let send_message = false // Flag
 
-                socket_c._socket.emit('send_message', {message}, function(callback) {})
+                const time_between_messages = '3000' // Time in ms between each message
+
+                // Check last sent message time (User did not send any messages yet)
+                if (this._las_sent_msg_time === 0) {
+                    // Set flag true
+                    send_message = true
+
+                    // Store time of the sent message
+                    this._las_sent_msg_time = Math.round(new Date().getTime()/1000)
+                }
+                // User already sent a message before
+                else {
+                    // Get time now
+                    const time_now = Math.round(new Date().getTime()/1000)
+
+                    // Calculate different between time now and message time
+                    const diff = time_now - this._las_sent_msg_time
+
+                    // If user trying to send a message in less than 1 seconds after sending the last message
+                    if (diff < 1) {
+                        Swal.fire({
+                            icon: 'warning',
+                            text: 'Please wait before sending another message!',
+                            showDenyButton: false,
+                            showCancelButton: false,
+                            confirmButtonText: 'Ok!',
+                            customClass: {
+                                popup: 'bg-dark',
+                                title: 'text-white',
+                                htmlContainer: 'text-white'
+                            }
+                        })
+                    }
+                    else {
+                        send_message = true
+
+                        // Store time of the sent message
+                        this._las_sent_msg_time = Math.round(new Date().getTime()/1000)
+                    }
+                }
+
+
+
+                if (send_message) {
+                    // Clear input
+                    document.getElementById(this._message_input).value = ''
+
+                    socket_c._socket.emit('send_message', {message}, function(callback) {})
+                }
             }
         })
 
