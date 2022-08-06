@@ -11,7 +11,7 @@ class PlyrClass {
         this._player_name = 'Direct Link'
 
         this._player = new Plyr('#html5src', {
-            controls: ['progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay']
+            controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay']
         });
         this.on_seek()
         this.on_timeupdate()

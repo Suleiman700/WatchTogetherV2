@@ -43,6 +43,7 @@ import './Buttons/MovieSection/Sync.js'
 import './Buttons/MovieSection/SetSource.js'
 import './Buttons/MovieSection/EnterFullscreen.js'
 import './Buttons/MovieSection/Invite.js'
+import './Buttons/MovieSection/Brightness.js'
 
 // Players
 import PlayerControllerClass from './Players/PlayersController.js'

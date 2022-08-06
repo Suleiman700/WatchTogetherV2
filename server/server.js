@@ -468,7 +468,7 @@ io.on('connection', (socket, test) => {
     socket.on('search_movies', async function (data) {
         // Check if user in a room
         // if (socket.roomnum === undefined) return
-cd
+
         const genre = data.genre
         const rating = data.rating
         const year = data.year

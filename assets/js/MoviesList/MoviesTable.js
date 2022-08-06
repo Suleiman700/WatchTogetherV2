@@ -73,7 +73,6 @@ class MoviesTable {
         // Clear all movies
         section.innerHTML = ''
         for (const movie of SearchTable_C._search_results) {
-            console.log(movie)
             const movie_name = movie['name']
             const movie_poster = movie['poster']
             const movie_year = movie['year'].length === 4? movie['year']:'No Data'
