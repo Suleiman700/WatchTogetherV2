@@ -96,7 +96,7 @@
 </div>
 
 <!-- Scroll-top -->
-<button class="scroll-top scroll-to-target" data-target="html">
+<button class="scroll-top scroll-to-target" data-target="html" style="display: none;">
     <i class="fas fa-angle-up"></i>
 </button>
 <!-- Scroll-top-end-->
@@ -524,7 +524,12 @@
                         </div>
                     </div>
                 </div>
-                <p class="text-center text-danger mt-3" id="no_results" style="display: none">No Results!</p>
+                <div class="row text-center" id="no_results" style="font-size: 18px; display: none">
+                    <div class="col-sm-12">
+                        <span>No movies have been found :(</span><br>
+                        <span>You can request a movie <a href="https://forms.gle/X6sgdjQCs7k94py38" target="_blank">by clicking here</a>.</span>
+                    </div>
+                </div>
                 <div id="sectionPagination" hidden>
                     <nav class="text-center mt-3" aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
