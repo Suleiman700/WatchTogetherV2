@@ -1,4 +1,3 @@
-
 class MovieControls {
     constructor() {
         this._controls_id = 'controls'
@@ -20,7 +19,7 @@ class MovieControls {
             controls_area.classList.add('fullscreen-movie-controls')
             controls_area.classList.remove('fullscreen-movie-controls-shown')
             controls_area.classList.add('fullscreen-movie-controls-hidden')
-            icon.style.display = 'block'
+            icon.style.display = 'inline-block'
         }
         else {
             controls_area.classList.remove('fullscreen-movie-controls')
