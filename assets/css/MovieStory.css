@@ -54,11 +54,11 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#1e1b26', GradientType=0); /* IE6-9 */
 
     position: absolute;
-    background-size: contain;
+    /*background-size: contain;*/
     background-size: cover;
     z-index: 1 !important;
     width: 375px;
-    height: 660px;
+    /*height: 660px;*/
     display: block;
     border-radius: 4px;
 }
