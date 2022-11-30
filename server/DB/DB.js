@@ -117,5 +117,4 @@ class DB {
     }
 }
 
-const DB_C = new DB();
-module.exports = DB_C
+module.exports = new DB();

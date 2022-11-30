@@ -9,6 +9,7 @@ const DB_C = require('./DB/DB')
 // Players
 const YouTubePlyr = require('./js/Players/YT_Player')
 const DLPlayer = require('./js/Players/DL_Player')
+const Users = require('./Classes/Users/Users')
 
 const https = require('https');
 const request = require('request');
@@ -662,25 +663,55 @@ app.all('*', function(req, res, next) {
     next();
 });
 
-app.post('/auth/signin', (req, res, next) => {
-
-    const email = req.body.data.email; // Need to make a check if this parameter exists
-    const password = req.body.data.password; // Need to make a check if this parameter exists
+app.post('/auth/signin', async (req, res, next) => {
 
     const result = {
         state: true,
-        msg: ''
+        msg: '',
     }
 
-
-    if (!email.trim().length || !password.trim().length) {
+    // Check if username or password not set
+    if (req.body.data === undefined || !Object.hasOwn(req.body.data, 'username') || !Object.hasOwn(req.body.data, 'password')) {
         result['state'] = false;
-        result['msg'] = 'Please enter a valid email and password';
+        result['msg'] = 'Please enter a valid username and password';
+    } else {
+        const username = req.body.data.username;
+        const password = req.body.data.password;
+
+        // Invalid data
+        if (!username.trim().length || !password.trim().length) {
+            result['state'] = false;
+            result['msg'] = 'Please enter a valid username and password';
+        }
+        // Valid data
+        else {
+            // Check if user exists with that username
+            const data = await Users.findByUsername(username)
+
+            // User found
+            if (data['data_found']) {
+                // Verify user password
+                const valid_password = await Users.verifyUserPassword(password, data['data']['password'])
+                console.log(valid_password)
+                if (valid_password) {
+                    result['state'] = true;
+                }
+                else {
+                    result['state'] = false;
+                    result['msg'] = 'Please enter a valid username and password';
+                }
+            }
+            // User not found
+            else {
+                result['state'] = false;
+                result['msg'] = 'Please enter a valid username and password';
+            }
+        }
+
+        // res.send({'Role': 'Role', 'profile': 'profile'});
     }
 
     res.status(200).send(result)
-    // res.send({'Role': 'Role', 'profile': 'profile'});
-    console.log('request get')
 })
 
 
