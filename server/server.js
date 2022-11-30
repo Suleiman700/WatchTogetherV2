@@ -12,6 +12,7 @@ const DLPlayer = require('./js/Players/DL_Player')
 
 const https = require('https');
 const request = require('request');
+const cors = require('cors')
 
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
@@ -39,34 +40,7 @@ function create_temp_access(movie_name) {
 DB_C.connect()
 
 
-// function db_find_get() {
-//     const dbo = client.db("watch_together");
-//     dbo.collection("movies").findOne({}, function(err, result) {
-//         if (err) throw err;
-//         console.log(result.name);
-//         client.close();
-//     });}
-
-
-
-// request('https://akwam.to/download/6945/movie',
-//     function (error, response, body){
-//         if (!error && response.statusCode == 200){
-//             console.log('request successful!');
-//
-//             // var input = JSON.parse(body);
-//             // console.log(body)
-//             // Do something with the body here
-//             // including calling assistant.ask()
-//             var test = body.split('<p class="mt-5"><a href="')[1].split('.mp4')[0] + '.mp4' // returns 'two'
-//             console.log(test)
-//         }
-//     });
-
-
-
 io.on('connection', (socket, test) => {
-
     // Get avatars
     const avatars_folder = '../assets/images/avatars';
     fs.readdir(avatars_folder, (err, files) => {
@@ -631,6 +605,23 @@ io.on('connection', (socket, test) => {
 });
 
 
+app.use(cors({
+    origin: '*'
+}));
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'DELETE, PUT');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    if ('OPTIONS' == req.method) {
+        res.sendStatus(200);
+    }
+    else {
+        next();
+    }});
+
+
+// app.use(cors({origin:true}))
 app.use(express.json())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -663,6 +654,34 @@ app.get('/get_movies', function (req, res){
     //     'size': action_movies.length
     // });
 });
+
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
+
+app.post('/auth/signin', (req, res, next) => {
+
+    const email = req.body.data.email; // Need to make a check if this parameter exists
+    const password = req.body.data.password; // Need to make a check if this parameter exists
+
+    const result = {
+        state: true,
+        msg: ''
+    }
+
+
+    if (!email.trim().length || !password.trim().length) {
+        result['state'] = false;
+        result['msg'] = 'Please enter a valid email and password';
+    }
+
+    res.status(200).send(result)
+    // res.send({'Role': 'Role', 'profile': 'profile'});
+    console.log('request get')
+})
 
 
 
