@@ -16,6 +16,9 @@ const request = require('request');
 const cors = require('cors')
 const jwt = require("jsonwebtoken");
 const auth = require("./auth/auth");
+const formidable = require('formidable');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
@@ -738,6 +741,42 @@ app.post('/auth/signin', async (req, res, next) => {
     res.status(200).send(result)
 })
 
+// Get server stats
+app.get("/stats/get-stats", auth, (request, response) => {
+    // Count total users
+    let total_users_count = 0
+    Object.keys(io.sockets.adapter.rooms).forEach(roomnum => {
+        total_users_count += io.sockets.adapter.rooms[roomnum].users.length
+    })
+
+    response.json({
+        total_rooms_count: Object.keys(io.sockets.adapter.rooms).length,
+        total_users_count: total_users_count
+    });
+});
+
+// Get server stats
+app.post("/test", auth, upload.single('movie_poster'), (req, res) => {
+    // console.log(req.data)
+    console.log(req.body)
+    // console.log(req.file)
+    // console.log(req.files)
+    // console.log(req.file);
+    //
+    //
+    // const form = formidable({ multiples: true });
+    // form.parse(req, (err, fields, files) => {
+    //     console.log('fields: ', fields);
+    //     console.log('files: ', files);
+    //     res.send({ success: true });
+    // });
+    //
+
+    console.log(req.body['data']['movie_poster2'])
+    // fs.writeFile('../_storage/poster.png', myFile, function (err) {
+    //     if (err) throw err;               console.log('Results Received');
+    // });
+});
 
 
 // server.listen(3000);

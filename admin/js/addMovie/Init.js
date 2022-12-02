@@ -10,9 +10,8 @@ Sidebar.load()
 import Footer from '../components/Footer.js'
 Footer.load()
 
-// Redirect non logged in user to the login page
-import Auth from '../../../helpers/auth/Auth.js'
-await Auth.redirect_non_logged()
-
-// Dashboard stats
-import DashboardStats from './DashboardStats.js'
+// Buttons
+import ButtonHandler from "../../../helpers/buttons/ButtonHandler.js";
+import Btn_AddMovie from './buttons/Btn_AddMovie.js';
+const buttons = [Btn_AddMovie]
+ButtonHandler.declareClicksEvents(buttons)
