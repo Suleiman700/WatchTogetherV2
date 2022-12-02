@@ -14,6 +14,8 @@ const Users = require('./Classes/Users/Users')
 const https = require('https');
 const request = require('request');
 const cors = require('cors')
+const jwt = require("jsonwebtoken");
+const auth = require("./auth/auth");
 
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
@@ -663,6 +665,13 @@ app.all('*', function(req, res, next) {
     next();
 });
 
+app.get("/auth-endpoint", auth, (request, response) => {
+    response.json({
+        isLogged: true,
+        message: "You are authorized to access me"
+    });
+});
+
 app.post('/auth/signin', async (req, res, next) => {
 
     const result = {
@@ -674,7 +683,8 @@ app.post('/auth/signin', async (req, res, next) => {
     if (req.body.data === undefined || !Object.hasOwn(req.body.data, 'username') || !Object.hasOwn(req.body.data, 'password')) {
         result['state'] = false;
         result['msg'] = 'Please enter a valid username and password';
-    } else {
+    }
+    else {
         const username = req.body.data.username;
         const password = req.body.data.password;
 
@@ -690,11 +700,25 @@ app.post('/auth/signin', async (req, res, next) => {
 
             // User found
             if (data['data_found']) {
-                // Verify user password
+                // Verify user hashed password
                 const valid_password = await Users.verifyUserPassword(password, data['data']['password'])
-                console.log(valid_password)
                 if (valid_password) {
+
+                    // create JWT token
+                    const token = jwt.sign(
+                        {
+                            id: data['data']['_id'],
+                            username: username,
+                        },
+                        "RANDOM-TOKEN",
+                        { expiresIn: "5h" }
+                    );
+
                     result['state'] = true;
+                    result['token'] = token;
+                    result['username'] = username;
+                    result['id'] = data['data']['_id'];
+
                 }
                 else {
                     result['state'] = false;

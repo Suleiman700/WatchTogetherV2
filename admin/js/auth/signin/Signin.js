@@ -12,6 +12,8 @@ import Alert from '../../../../helpers/alert/Alert.js';
 // Config
 import CONFIG from '../../../../assets/js/Config.js';
 
+import Auth from '../../../../helpers/auth/Auth.js';
+
 class Signin {
     constructor() {}
 
@@ -19,6 +21,11 @@ class Signin {
      * Perform signin action
      */
     async perform_signin() {
+        // await Auth.check_logged_state()
+        // return
+        // Get session data
+        const session_token = sessionStorage.getItem('SYNCWATCH_token')
+
         // Show alert
         Alert.set_class('info')
         Alert.set_text('Please Wait...', true)
@@ -49,6 +56,12 @@ class Signin {
             // Show alert
             Alert.set_class('success')
             Alert.set_text('Logged in', false)
+
+            // Save token into sessionStorage
+            sessionStorage.setItem('SYNCWATCH_token', response['token']);
+
+            // Redirect to dashboard
+            window.location.href = "./index.html";
         }
         else {
             // Show alert

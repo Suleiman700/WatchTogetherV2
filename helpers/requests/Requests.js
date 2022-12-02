@@ -13,6 +13,8 @@ export default class Requests {
     async send_request() {
         let res
 
+        const session_token = sessionStorage.getItem('SYNCWATCH_token')
+
         // fetch(this._server + this.path).then(req => req.text()).then(console.log)
         // return
         // Send request
@@ -27,14 +29,16 @@ export default class Requests {
             },
             "headers": {
                 "accept": "application/json",
-                "Access-Control-Allow-Origin":"*"
+                "Access-Control-Allow-Origin":"*",
+                'Authorization': `Basic ${session_token}`
             },
             success: function (data, status, xhr) {
                 // res = JSON.parse(data)
                 res = data
             },
             error: function (jqXhr, textStatus, errorMessage) {
-                $('p').append('Error' + errorMessage);
+                res = textStatus
+                // $('p').append('Error' + errorMessage);
             }
         });
 
