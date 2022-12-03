@@ -758,8 +758,8 @@ app.get("/stats/get-stats", auth, (request, response) => {
     });
 });
 
-// Get server stats
-app.post("/test", auth, upload.single('movie_poster'), async (req, res) => {
+// Add movie
+app.post("/movies/add", auth, upload.single('movie_poster'), async (req, res) => {
     const {movie_name, movie_year, movie_genre, movie_desc, movie_rating, movie_poster, movie_src} = req.body.data
 
     let valid = true
@@ -794,6 +794,17 @@ app.post("/test", auth, upload.single('movie_poster'), async (req, res) => {
 
 });
 
+// Get movies list
+app.get("/movies/get-movies", auth, upload.single('movie_poster'), async (req, res) => {
+    const movies = await Movie.get_movies()
+
+    console.log(movies.length)
+
+    res.status(200).send({
+        state: movies.length > 0,
+        data: movies
+    })
+});
 
 // server.listen(3000);
 app.listen(3000);

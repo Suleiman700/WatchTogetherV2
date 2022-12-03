@@ -85,7 +85,7 @@ class AddMovie {
             }
 
 
-            const request = new Requests('/test', 'POST', test, 'test')
+            const request = new Requests('/movies/add', 'POST', test, 'test')
             const response = await request.send_request()
 
             if (response['state']) {

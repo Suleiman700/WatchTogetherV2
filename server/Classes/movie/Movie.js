@@ -20,11 +20,32 @@ class Movie {
             'movie_rating': _movie_data['movie_rating'],
             'movie_poster': _movie_data['movie_poster'],
             'movie_src': _movie_data['movie_src'],
+            'active': true
         }, function (error, result) {
             if (error) inserted = false
         })
 
         return inserted
+    }
+
+    /**
+     * Get movies
+     */
+    async get_movies() {
+        const dbo = DB._client.db(DB._db);
+
+        const data = await dbo.collection('movie').find({
+            active: true
+        }).project({
+            movie_name: 1,
+            movie_year: 1,
+            movie_genre: 1,
+            movie_desc: 1,
+            movie_rating: 1,
+        }).toArray();
+
+
+        return data
     }
 }
 
