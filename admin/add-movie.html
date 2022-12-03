@@ -60,6 +60,10 @@
                     <div class="col-12">
                         <div class="bg-secondary rounded h-100 p-4" id="form">
                             <h6 class="mb-4">Add Movie</h6>
+                            <div class="alert text-center" role="alert" id="alert-msg" style="display: none;">
+                                <div class="spinner-border spinner-border-sm" role="status" id="spinner" style="display: none;"></div>
+                                <span id="text"></span>
+                            </div>
                             <form>
                                 <div class="mb-3">
                                     <label for="movie_name" class="form-label">Movie Name <code>*</code></label>
@@ -104,13 +108,15 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="movie_poster" class="form-label">Movie Poster <code>*</code></label>
-                                    <input type="file" class="form-control bg-dark" id="movie_poster" accept="image/*">
-                                    <small class="text-muted">* Only images allowed</small>
+<!--                                    <input type="file" class="form-control bg-dark" id="movie_poster" accept="image/*">-->
+                                    <input type="text" class="form-control" id="movie_poster">
+                                    <small class="text-muted">* Example: www.domain.com/poster.png</small>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="movie_file" class="form-label">Movie File <code>*</code></label>
-                                    <input type="file" class="form-control bg-dark" id="movie_file" accept="video/mp4">
-                                    <small class="text-muted">* Only <code>.mp4</code> allowed</small>
+                                    <label for="movie_src" class="form-label">Movie Source <code>*</code></label>
+<!--                                    <input type="file" class="form-control bg-dark" id="movie_src" accept="video/mp4">-->
+                                    <input type="text" class="form-control" id="movie_src">
+                                    <small class="text-muted">* Example: www.domain.com/movie.mp4</small>
                                 </div>
                                 <button type="button" class="btn btn-primary" id="add_movie">Add Movie</button>
                             </form>
@@ -146,6 +152,7 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script src="js/addMovie/Init.js" type="module"></script>
+
 </body>
 
 </html>

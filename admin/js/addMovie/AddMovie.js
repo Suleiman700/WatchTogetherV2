@@ -5,15 +5,23 @@ import Select_MovieGenre from './selects/Select_MovieGenre.js';
 import Input_MovieDesc from './inputs/Input_MovieDesc.js';
 import Select_MovieRating from './selects/Select_MovieRating.js';
 import Input_MoviePoster from './inputs/Input_MoviePoster.js';
-import Input_MovieFile from './inputs/Input_MovieFile.js';
+import Input_MovieSrc from './inputs/Input_MovieSrc.js';
 
 // Request
 import Requests from '../../../helpers/requests/Requests.js'
+
+// Alert
+import Alert from '../../../helpers/alert/Alert.js';
 
 class AddMovie {
     constructor() {}
 
     async add_movie() {
+        // Show alert
+        Alert.set_class('info')
+        Alert.set_text('Please wait...', true)
+        Alert.show_alert(true)
+
         let valid = true
 
         const movie_name = Input_MovieName.get_value()
@@ -58,47 +66,47 @@ class AddMovie {
         //     return
         // }
 
-        const movie_file = Input_MovieFile.get_value()
-        Input_MovieFile.mark_error(movie_file === undefined)
-        // if (movie_file === undefined) {
+        const movie_src = Input_MovieSrc.get_value()
+        Input_MovieSrc.mark_error(movie_src === undefined)
+        // if (movie_src === undefined) {
         //     valid = false
         //     return
         // }
 
         if (valid) {
-            let formData = new FormData();
-
-            formData.append("movie_poster[]", document.getElementById("movie_poster").files[0]);
-
-
-            function getBase64(file) {
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function () {
-                    return reader.result
-                };
-                reader.onerror = function (error) {
-                    console.log('Error: ', error);
-                };
-            }
-
-            const base64 = window.URL.createObjectURL(document.getElementById("movie_poster").files[0]);
-            console.log(base64)
-
             const test = {
                 'movie_name': movie_name,
                 'movie_year': movie_year,
                 'movie_genre': movie_genre,
                 'movie_desc': movie_desc,
                 'movie_rating': movie_rating,
-                // 'movie_poster': movie_poster,
-                'movie_poster': document.getElementById("movie_poster").files[0].file,
-                'movie_poster2': base64,
-                'movie_file': movie_file,
+                'movie_poster': movie_poster,
+                'movie_src': movie_src,
             }
+
 
             const request = new Requests('/test', 'POST', test, 'test')
             const response = await request.send_request()
+
+            if (response['state']) {
+                // Show alert
+                Alert.set_class('success')
+                Alert.set_text(response['msg'], false)
+                Alert.show_alert(true)
+
+                // Clear fields
+                Input_MovieName.clear()
+                Input_MovieYear.clear()
+                Input_MovieDesc.clear()
+                Input_MoviePoster.clear()
+                Input_MovieSrc.clear()
+            }
+            else {
+                // Show alert
+                Alert.set_class('danger')
+                Alert.set_text(response['msg'], false)
+                Alert.show_alert(true)
+            }
         }
 
     }

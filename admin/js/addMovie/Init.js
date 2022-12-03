@@ -10,8 +10,18 @@ Sidebar.load()
 import Footer from '../components/Footer.js'
 Footer.load()
 
+// Initialize alert
+import Alert from '../../../helpers/alert/Alert.js';
+Alert.set_id('alert-msg')
+
 // Buttons
 import ButtonHandler from "../../../helpers/buttons/ButtonHandler.js";
 import Btn_AddMovie from './buttons/Btn_AddMovie.js';
 const buttons = [Btn_AddMovie]
 ButtonHandler.declareClicksEvents(buttons)
+
+// Inputs
+import FileInputHandler from '../../../helpers/files/FileInputHandler.js';
+import FileInput_MoviePoster from './fileInput/FileInput_MoviePoster.js';
+const filesinputs = [FileInput_MoviePoster]
+FileInputHandler.declareChangeEvents(filesinputs)

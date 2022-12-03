@@ -20,6 +20,8 @@ const formidable = require('formidable');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
+const Movie = require('./Classes/movie/Movie')
+
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 
@@ -630,7 +632,8 @@ app.use(function(req, res, next) {
 // app.use(cors({origin:true}))
 app.use(express.json())
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended:true,limit:'50mb',parameterLimit:50000}));
 
 app.get('/get_movies', function (req, res){
     let movies_source
@@ -756,26 +759,39 @@ app.get("/stats/get-stats", auth, (request, response) => {
 });
 
 // Get server stats
-app.post("/test", auth, upload.single('movie_poster'), (req, res) => {
-    // console.log(req.data)
-    console.log(req.body)
-    // console.log(req.file)
-    // console.log(req.files)
-    // console.log(req.file);
-    //
-    //
-    // const form = formidable({ multiples: true });
-    // form.parse(req, (err, fields, files) => {
-    //     console.log('fields: ', fields);
-    //     console.log('files: ', files);
-    //     res.send({ success: true });
-    // });
-    //
+app.post("/test", auth, upload.single('movie_poster'), async (req, res) => {
+    const {movie_name, movie_year, movie_genre, movie_desc, movie_rating, movie_poster, movie_src} = req.body.data
 
-    console.log(req.body['data']['movie_poster2'])
-    // fs.writeFile('../_storage/poster.png', myFile, function (err) {
-    //     if (err) throw err;               console.log('Results Received');
-    // });
+    let valid = true
+    if (movie_name === undefined || movie_year === undefined || movie_genre === undefined || movie_desc === undefined || movie_rating === undefined || movie_poster === undefined || movie_src === undefined) {
+        valid = false
+    }
+
+
+
+    if (valid) {
+        const inserted = await Movie.add_movie(req.body.data)
+
+        if (inserted) {
+            res.status(200).send({
+                state: true,
+                msg: 'Movie has been added successfully'
+            })
+        }
+        else {
+            res.status(400).send({
+                state: false,
+                msg: 'An error occurred while adding movie'
+            })
+        }
+
+    } else {
+        res.status(400).send({
+            state: false,
+            msg: 'One or more fields are invalid'
+        })
+    }
+
 });
 
 

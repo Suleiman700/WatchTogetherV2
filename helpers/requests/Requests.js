@@ -18,29 +18,35 @@ export default class Requests {
         // fetch(this._server + this.path).then(req => req.text()).then(console.log)
         // return
         // Send request
-        await $.ajax(this._server + this.path, {
-            xhrFields: {cors: false},
-            type: this.type,  // http method
-            crossDomain: true,
-            dataType: "json",
-            data: {
-                data: this.data,
-                model: this.model
-            },
-            "headers": {
-                "accept": "application/json",
-                "Access-Control-Allow-Origin":"*",
-                'Authorization': `Basic ${session_token}`
-            },
-            success: function (data, status, xhr) {
-                // res = JSON.parse(data)
-                res = data
-            },
-            error: function (jqXhr, textStatus, errorMessage) {
-                res = textStatus
-                // $('p').append('Error' + errorMessage);
-            }
-        });
+        try {
+            await $.ajax(this._server + this.path, {
+                xhrFields: {cors: false},
+                type: this.type,  // http method
+                crossDomain: true,
+                dataType: "json",
+                data: {
+                    data: this.data,
+                    model: this.model
+                },
+                "headers": {
+                    "accept": "application/json",
+                    "Access-Control-Allow-Origin":"*",
+                    'Authorization': `Basic ${session_token}`
+                },
+                success: function (data, status, xhr) {
+                    // res = JSON.parse(data)
+                    res = data
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+                    res = textStatus
+                    // $('p').append('Error' + errorMessage);
+                }
+            });
+        }
+        catch (e) {
+            res = e.responseJSON
+        }
+
 
         return res
     }
