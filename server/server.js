@@ -794,15 +794,59 @@ app.post("/movies/add", auth, upload.single('movie_poster'), async (req, res) =>
 
 });
 
+// Edit movie
+app.post("/movies/edit", auth, async (req, res) => {
+    const {movie_name, movie_year, movie_genre, movie_desc, movie_rating, movie_poster, movie_src} = req.body.data
+
+    let valid = true
+    if (movie_name === undefined || movie_year === undefined || movie_genre === undefined || movie_desc === undefined || movie_rating === undefined || movie_poster === undefined || movie_src === undefined) {
+        valid = false
+    }
+
+    if (valid) {
+        const updated = await Movie.edit_movie(req.body.data)
+
+        if (updated) {
+            res.status(200).send({
+                state: true,
+                msg: 'Movie has been updated successfully'
+            })
+        }
+        else {
+            res.status(400).send({
+                state: false,
+                msg: 'An error occurred while updating movie'
+            })
+        }
+
+    } else {
+        res.status(400).send({
+            state: false,
+            msg: 'One or more fields are invalid'
+        })
+    }
+
+});
+
 // Get movies list
 app.get("/movies/get-movies", auth, upload.single('movie_poster'), async (req, res) => {
     const movies = await Movie.get_movies()
 
-    console.log(movies.length)
-
     res.status(200).send({
         state: movies.length > 0,
-        data: movies
+        movies: movies
+    })
+});
+
+// Check if movie exist
+app.get("/movies/check-movie-exist", auth, async (req, res) => {
+    // const movies = await Movie.get_movies()
+    const movie_id = req.query.data.movie_id
+    const movie_exist = await Movie.check_movie_exist(movie_id)
+
+    res.status(200).send({
+        state: movie_exist['found'],
+        movie_data: movie_exist['movie_data']
     })
 });
 

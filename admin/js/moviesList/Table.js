@@ -16,6 +16,19 @@ class Table {
     }
 
     /**
+     * Show no results row
+     */
+    show_no_results() {
+        $("#movies_table").find('tbody')
+            .append($('<tr>')
+                .append($('<th>')
+                    .attr({'colspan': '20', 'class': 'text-warning'})
+                    .text('No movies have been found')
+                )
+            );
+    }
+
+    /**
      * Generate edit icon
      * @param _movie_id
      */
@@ -28,8 +41,6 @@ class Table {
      * @param _movie_data {object}
      */
     add_row(_movie_data) {
-        console.log(_movie_data)
-
         const count = this.count_rows()
 
         $("#movies_table").find('tbody')

@@ -13,10 +13,17 @@ class MoviesList {
         const request = new Requests('/movies/get-movies', 'GET', {}, 'test')
         const response = await request.send_request()
 
+        const movies_count = response['movies'].length
+
+        // Movies found
         if (response['state']) {
-            for (const movie of response['data']) {
+            for (const movie of response['movies']) {
                 Table.add_row(movie)
             }
+        }
+        // No movies were found
+        else {
+            Table.show_no_results()
         }
     }
 }
