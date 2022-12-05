@@ -829,7 +829,7 @@ app.post("/movies/edit", auth, async (req, res) => {
 });
 
 // Get movies list
-app.get("/movies/get-movies", auth, upload.single('movie_poster'), async (req, res) => {
+app.get("/movies/get-movies", auth, async (req, res) => {
     const movies = await Movie.get_movies()
 
     res.status(200).send({
