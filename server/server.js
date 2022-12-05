@@ -804,23 +804,32 @@ app.post("/movies/edit", auth, async (req, res) => {
     }
 
     if (valid) {
+        // Check if movie exist before updating it
+        const movie_exist = await Movie.check_movie_exist(req.body.data['movie_id'])
 
-        // ToDo - Check if the movie exist before updatring it
-        const updated = await Movie.edit_movie(req.body.data)
-
-        if (updated) {
-            res.status(200).send({
-                state: true,
-                msg: 'Movie has been updated successfully'
-            })
+        // Movie found
+        if (movie_exist['found']) {
+            const updated = await Movie.edit_movie(req.body.data)
+            if (updated) {
+                res.status(200).send({
+                    state: true,
+                    msg: 'Movie has been updated successfully'
+                })
+            }
+            else {
+                res.status(400).send({
+                    state: false,
+                    msg: 'An error occurred while updating movie, Please try again later'
+                })
+            }
         }
+        // Movie was not found
         else {
-            res.status(400).send({
+            res.status(404).send({
                 state: false,
-                msg: 'An error occurred while updating movie'
+                msg: 'An error occurred while updating movie, movie was not found'
             })
         }
-
     }
     else {
         res.status(400).send({

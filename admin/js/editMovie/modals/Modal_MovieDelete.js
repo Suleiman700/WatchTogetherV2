@@ -56,10 +56,10 @@ class Modal_MovieDelete {
             Btn_CloseAfterDeleting.show_btn(true)
 
             // Set timeout after deleting
-            setTimeout(() => {
-                // Redirect to movies list
-                window.location.href = "./movies-list.html";
-            }, 1000)
+            // setTimeout(() => {
+            //     // Redirect to movies list
+            //     window.location.href = "./movies-list.html";
+            // }, 1000)
 
         }
         // Movie was not deleted
