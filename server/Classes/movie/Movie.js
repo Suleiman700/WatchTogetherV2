@@ -62,6 +62,32 @@ class Movie {
     }
 
     /**
+     * Delete movie from
+     * @param _movie_id {string}
+     * @returns {Promise<boolean>}
+     */
+    async delete_movie(_movie_id) {
+        const dbo = DB._client.db(DB._db);
+
+        let deleted = true
+
+        try {
+            await dbo.collection('movie').deleteOne(
+                {
+                    _id: ObjectId(_movie_id)
+                },
+                function(error, result) {
+                    if (error) deleted = false
+                })
+        }
+        catch (error) {
+            deleted = false
+        }
+
+        return deleted
+    }
+
+    /**
      * Get movies
      */
     async get_movies() {
@@ -88,19 +114,24 @@ class Movie {
      */
     async check_movie_exist(_movie_id) {
         const data = {
-            found: true,
+            found: false,
             movie_data: []
         }
 
         const dbo = DB._client.db(DB._db);
 
-        const searched_movie = await dbo.collection('movie').find({
-            _id: ObjectId(_movie_id)
-        }).toArray();
+        try {
+            const searched_movie = await dbo.collection('movie').find({
+                _id: ObjectId(_movie_id)
+            }).toArray();
 
-        if (searched_movie.length) {
-            data['found'] = true
-            data['movie_data'] = searched_movie[0]
+            if (searched_movie.length) {
+                data['found'] = true
+                data['movie_data'] = searched_movie[0]
+            }
+        }
+        catch (err) {
+            data['found'] = false
         }
 
         return data

@@ -19,12 +19,16 @@ class Table {
      * Show no results row
      */
     show_info_row(_option, _text) {
+        // Delete previous row if found
+        $('table tbody tr#table_info_row').remove()
+
         $("#movies_table").find('tbody')
             .append($('<tr>')
+                .attr({'id': 'table_info_row'})
+                .css({'display': _option? 'contents' : 'none'})
                 .append($('<th>')
-                    .attr({'colspan': '20', 'class': 'text-warning'})
-                    .css({'display': _option? 'block' : 'none'})
-                    .text('_text')
+                    .attr({'colspan': '20', 'class': 'text-muted'})
+                    .text(_text)
                 )
             );
     }
@@ -48,7 +52,7 @@ class Table {
             .append($('<tr>')
                 .append($('<th>')
                     .attr('scope', 'row')
-                    .text(count+1)
+                    .text(count)
                 )
                 .append($('<td>')
                     .text(_movie_data['movie_name'])

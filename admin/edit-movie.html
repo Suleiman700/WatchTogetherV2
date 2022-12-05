@@ -130,7 +130,8 @@
                                         <option value="true">Yes</option>
                                     </select>
                                 </div>
-                                <button type="button" class="btn btn-primary" id="edit_movie"><i class="fa fa-edit"></i> Edit Movie</button>
+                                <button type="button" class="btn btn-success" id="edit_movie"><i class="fa fa-edit"></i> Edit Movie</button>
+                                <button type="button" class="btn btn-danger mx-3" id="delete_movie"><i class="fa fa-trash"></i> Delete Movie</button>
                             </form>
                         </div>
                     </div>
@@ -149,6 +150,27 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+
+    <div class="modal fade" id="modal_delete_movie" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-color: #252525;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Delete Movie</h5>
+                </div>
+                <div class="modal-body text-center">
+                    <p id="modal_body_text">
+                        Do you really want to delete this movie ?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="confirm_delete_movie"><i class="fa fa-trash"></i> Delete</button>
+                    <button type="button" class="btn btn-secondary" id="cancel_delete_movie">Cancel</button>
+                    <button type="button" class="btn btn-secondary" id="close_after_deleting" style="display:none;">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

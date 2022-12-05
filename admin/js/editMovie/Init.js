@@ -13,7 +13,11 @@ Sidebar.load()
 // Buttons
 import ButtonHandler from "../../../helpers/buttons/ButtonHandler.js";
 import Btn_EditMovie from './buttons/Btn_EditMovie.js';
-const buttons = [Btn_EditMovie]
+import Btn_DeleteMovie from './buttons/Btn_DeleteMovie.js';
+import Btn_ConfirmDeleteMovie from './modals/buttons/Btn_ConfirmDeleteMovie.js';
+import Btn_CloseAfterDeleting from './modals/buttons/Btn_CloseAfterDeleting.js';
+import Btn_CancelDeleteMovie from './modals/buttons/Btn_CancelDeleteMovie.js';
+const buttons = [Btn_EditMovie, Btn_DeleteMovie, Btn_ConfirmDeleteMovie, Btn_CloseAfterDeleting, Btn_CancelDeleteMovie]
 ButtonHandler.declareClicksEvents(buttons)
 
 // Initialize alert

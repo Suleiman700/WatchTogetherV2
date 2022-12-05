@@ -804,6 +804,8 @@ app.post("/movies/edit", auth, async (req, res) => {
     }
 
     if (valid) {
+
+        // ToDo - Check if the movie exist before updatring it
         const updated = await Movie.edit_movie(req.body.data)
 
         if (updated) {
@@ -819,7 +821,8 @@ app.post("/movies/edit", auth, async (req, res) => {
             })
         }
 
-    } else {
+    }
+    else {
         res.status(400).send({
             state: false,
             msg: 'One or more fields are invalid'
@@ -827,6 +830,34 @@ app.post("/movies/edit", auth, async (req, res) => {
     }
 
 });
+
+// Delete movie
+app.delete("/movies/delete", auth, async (req, res) => {
+    // Check if movie exist
+    const movie_id = req.body.data.movie_id
+    const movie_exist = await Movie.check_movie_exist(movie_id)
+
+    const data = {
+        movie_found: false,
+        movie_deleted: false
+    }
+
+    // Movie exist
+    if (movie_exist['found']) {
+        data['movie_found'] = true
+
+        // Try to delete movie
+        const deleted = await Movie.delete_movie(movie_id)
+
+        // Movie was deleted
+        if (deleted) {
+            data['movie_deleted'] = true
+        }
+    }
+
+    res.status(200).send(data)
+});
+
 
 // Get movies list
 app.get("/movies/get-movies", auth, async (req, res) => {
