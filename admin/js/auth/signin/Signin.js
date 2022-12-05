@@ -52,6 +52,12 @@ class Signin {
 
         console.log(response)
 
+        if (response === undefined) {
+            // Show alert
+            Alert.set_class('danger')
+            Alert.set_text('An error occurred during signing process', false)
+        }
+
         if (response['state']) {
             // Show alert
             Alert.set_class('success')
