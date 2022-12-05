@@ -14,6 +14,13 @@ const Users = require('./Classes/Users/Users')
 const https = require('https');
 const request = require('request');
 const cors = require('cors')
+const jwt = require("jsonwebtoken");
+const auth = require("./auth/auth");
+const formidable = require('formidable');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
+const Movie = require('./Classes/movie/Movie')
 
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
@@ -625,7 +632,8 @@ app.use(function(req, res, next) {
 // app.use(cors({origin:true}))
 app.use(express.json())
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended:true,limit:'50mb',parameterLimit:50000}));
 
 app.get('/get_movies', function (req, res){
     let movies_source
@@ -663,6 +671,13 @@ app.all('*', function(req, res, next) {
     next();
 });
 
+app.get("/auth-endpoint", auth, (request, response) => {
+    response.json({
+        isLogged: true,
+        message: "You are authorized to access me"
+    });
+});
+
 app.post('/auth/signin', async (req, res, next) => {
 
     const result = {
@@ -674,7 +689,8 @@ app.post('/auth/signin', async (req, res, next) => {
     if (req.body.data === undefined || !Object.hasOwn(req.body.data, 'username') || !Object.hasOwn(req.body.data, 'password')) {
         result['state'] = false;
         result['msg'] = 'Please enter a valid username and password';
-    } else {
+    }
+    else {
         const username = req.body.data.username;
         const password = req.body.data.password;
 
@@ -690,11 +706,25 @@ app.post('/auth/signin', async (req, res, next) => {
 
             // User found
             if (data['data_found']) {
-                // Verify user password
+                // Verify user hashed password
                 const valid_password = await Users.verifyUserPassword(password, data['data']['password'])
-                console.log(valid_password)
                 if (valid_password) {
+
+                    // create JWT token
+                    const token = jwt.sign(
+                        {
+                            id: data['data']['_id'],
+                            username: username,
+                        },
+                        "RANDOM-TOKEN",
+                        { expiresIn: "5h" }
+                    );
+
                     result['state'] = true;
+                    result['token'] = token;
+                    result['username'] = username;
+                    result['id'] = data['data']['_id'];
+
                 }
                 else {
                     result['state'] = false;
@@ -714,7 +744,111 @@ app.post('/auth/signin', async (req, res, next) => {
     res.status(200).send(result)
 })
 
+// Get server stats
+app.get("/stats/get-stats", auth, (request, response) => {
+    // Count total users
+    let total_users_count = 0
+    Object.keys(io.sockets.adapter.rooms).forEach(roomnum => {
+        total_users_count += io.sockets.adapter.rooms[roomnum].users.length
+    })
 
+    response.json({
+        total_rooms_count: Object.keys(io.sockets.adapter.rooms).length,
+        total_users_count: total_users_count
+    });
+});
+
+// Add movie
+app.post("/movies/add", auth, upload.single('movie_poster'), async (req, res) => {
+    const {movie_name, movie_year, movie_genre, movie_desc, movie_rating, movie_poster, movie_src} = req.body.data
+
+    let valid = true
+    if (movie_name === undefined || movie_year === undefined || movie_genre === undefined || movie_desc === undefined || movie_rating === undefined || movie_poster === undefined || movie_src === undefined) {
+        valid = false
+    }
+
+
+
+    if (valid) {
+        const inserted = await Movie.add_movie(req.body.data)
+
+        if (inserted) {
+            res.status(200).send({
+                state: true,
+                msg: 'Movie has been added successfully'
+            })
+        }
+        else {
+            res.status(400).send({
+                state: false,
+                msg: 'An error occurred while adding movie'
+            })
+        }
+
+    } else {
+        res.status(400).send({
+            state: false,
+            msg: 'One or more fields are invalid'
+        })
+    }
+
+});
+
+// Edit movie
+app.post("/movies/edit", auth, async (req, res) => {
+    const {movie_name, movie_year, movie_genre, movie_desc, movie_rating, movie_poster, movie_src} = req.body.data
+
+    let valid = true
+    if (movie_name === undefined || movie_year === undefined || movie_genre === undefined || movie_desc === undefined || movie_rating === undefined || movie_poster === undefined || movie_src === undefined) {
+        valid = false
+    }
+
+    if (valid) {
+        const updated = await Movie.edit_movie(req.body.data)
+
+        if (updated) {
+            res.status(200).send({
+                state: true,
+                msg: 'Movie has been updated successfully'
+            })
+        }
+        else {
+            res.status(400).send({
+                state: false,
+                msg: 'An error occurred while updating movie'
+            })
+        }
+
+    } else {
+        res.status(400).send({
+            state: false,
+            msg: 'One or more fields are invalid'
+        })
+    }
+
+});
+
+// Get movies list
+app.get("/movies/get-movies", auth, upload.single('movie_poster'), async (req, res) => {
+    const movies = await Movie.get_movies()
+
+    res.status(200).send({
+        state: movies.length > 0,
+        movies: movies
+    })
+});
+
+// Check if movie exist
+app.get("/movies/check-movie-exist", auth, async (req, res) => {
+    // const movies = await Movie.get_movies()
+    const movie_id = req.query.data.movie_id
+    const movie_exist = await Movie.check_movie_exist(movie_id)
+
+    res.status(200).send({
+        state: movie_exist['found'],
+        movie_data: movie_exist['movie_data']
+    })
+});
 
 // server.listen(3000);
 app.listen(3000);
