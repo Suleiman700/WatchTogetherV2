@@ -93,7 +93,7 @@ class MovieSearch {
     on_search() {
         document.getElementById('movies_search').addEventListener('click', (e) => {
             // Hide no result section
-            this.show_no_results(false)
+            this.show_info_row(false)
 
             // Show loading spinner
             MoviesTable_C.show_spinner(true)
@@ -141,7 +141,7 @@ class MovieSearch {
      * Show or hide no result section
      * @param _option {Boolean}
      */
-    show_no_results(_option) {
+    show_info_row(_option) {
         if (_option) {
             document.getElementById(this.no_result_section).style.display = 'block'
         }

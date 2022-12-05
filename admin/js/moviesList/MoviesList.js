@@ -23,7 +23,7 @@ class MoviesList {
         }
         // No movies were found
         else {
-            Table.show_no_results()
+            Table.show_info_row(true, 'No movies were found')
         }
     }
 }

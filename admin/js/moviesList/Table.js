@@ -18,12 +18,13 @@ class Table {
     /**
      * Show no results row
      */
-    show_no_results() {
+    show_info_row(_option, _text) {
         $("#movies_table").find('tbody')
             .append($('<tr>')
                 .append($('<th>')
                     .attr({'colspan': '20', 'class': 'text-warning'})
-                    .text('No movies have been found')
+                    .css({'display': _option? 'block' : 'none'})
+                    .text('_text')
                 )
             );
     }
