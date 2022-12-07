@@ -867,7 +867,6 @@ app.delete("/movies/delete", auth, async (req, res) => {
     res.status(200).send(data)
 });
 
-
 // Get movies list
 app.get("/movies/get-movies", auth, async (req, res) => {
     const movies = await Movie.get_movies()
@@ -889,6 +888,27 @@ app.get("/movies/check-movie-exist", auth, async (req, res) => {
         movie_data: movie_exist['movie_data']
     })
 });
+
+// Get rooms list
+app.get("/rooms/get-rooms", auth, async (req, res) => {
+    // const rooms = await Rooms.get_rooms()
+
+    const rooms_data = {}
+
+    // Count total users
+    let total_users_count = 0
+    Object.keys(io.sockets.adapter.rooms).forEach(roomnum => {
+        // Since rooms numbers starts with 'room-', will remove that word and stay with just the actual room number
+        const clean_room_number = roomnum.replace('room-', '')
+        rooms_data[clean_room_number] = io.sockets.adapter.rooms[roomnum].users.length
+    })
+    
+    res.status(200).send({
+        rooms_found: Object.keys(rooms_data).length > 0,
+        rooms: rooms_data
+    })
+});
+
 
 // server.listen(3000);
 app.listen(3000);
