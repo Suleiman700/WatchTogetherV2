@@ -902,7 +902,7 @@ app.get("/rooms/get-rooms", auth, async (req, res) => {
         const clean_room_number = roomnum.replace('room-', '')
         rooms_data[clean_room_number] = io.sockets.adapter.rooms[roomnum].users.length
     })
-    
+
     res.status(200).send({
         rooms_found: Object.keys(rooms_data).length > 0,
         rooms: rooms_data
