@@ -28,7 +28,8 @@ module.exports = async (request, response, next) => {
 
     } catch (error) {
         response.status(401).json({
-            error: new Error("Invalid request!"),
+            state: false,
+            msg: "Invalid request!",
         });
     }
 };

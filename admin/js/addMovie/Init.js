@@ -1,3 +1,7 @@
+// Redirect non-logged-in user to the login page
+import Auth from '../../../helpers/auth/Auth.js'
+await Auth.redirect_non_logged()
+
 // Load header
 import Header from '../components/Header.js'
 Header.load()

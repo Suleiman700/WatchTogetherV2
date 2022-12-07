@@ -18,8 +18,6 @@ export const get_session_storage = (_key) => {
 
 export const clear_session_storage = (_key) => {
     switch (_key) {
-        case 'data':
-            return sessionStorage.removeItem('SYNCWATCH_data')
         case 'token':
             return sessionStorage.removeItem('SYNCWATCH_token')
     }

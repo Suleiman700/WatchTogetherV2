@@ -759,7 +759,7 @@ app.get("/stats/get-stats", auth, (request, response) => {
 });
 
 // Add movie
-app.post("/movies/add", auth, upload.single('movie_poster'), async (req, res) => {
+app.post("/movies/add", auth, async (req, res) => {
     const {movie_name, movie_year, movie_genre, movie_desc, movie_rating, movie_poster, movie_src} = req.body.data
 
     let valid = true

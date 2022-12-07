@@ -15,6 +15,9 @@ import Requests from '../../../helpers/requests/Requests.js'
 // Alert
 import Alert from '../../../helpers/alert/Alert.js';
 
+// Loading
+import Loading from '../../../helpers/loading/Loading.js';
+
 class EditMovie {
     constructor() {}
 
@@ -44,6 +47,9 @@ class EditMovie {
      * Get movie to edit
      */
     async get_movie_to_edit() {
+        // Show loading
+        Loading.show('Please Wait', 'Getting movie details...')
+
         const movie_id = this.get_url_param()
 
         const request = new Requests('/movies/check-movie-exist', 'GET', {movie_id: movie_id})
@@ -58,6 +64,9 @@ class EditMovie {
             // Redirect to movies list
             window.location.href = "./movies-list.html";
         }
+
+        // Hide loading
+        Loading.hide()
     }
 
     /**

@@ -1,3 +1,7 @@
+// Redirect non-logged-in user to the login page
+import Auth from '../../../helpers/auth/Auth.js'
+await Auth.redirect_non_logged()
+
 // Load header
 import Header from '../components/Header.js'
 Header.load()
@@ -6,9 +10,13 @@ Header.load()
 import Sidebar from '../components/Sidebar.js'
 Sidebar.load()
 
-// // Load footer
-// import Footer from '../components/Footer.js'
-// Footer.load()
+// Load footer
+import Footer from '../components/Footer.js'
+Footer.load()
+
+// Check if movie exist
+import EditMovie from './EditMovie.js';
+await EditMovie.get_movie_to_edit()
 
 // Buttons
 import ButtonHandler from "../../../helpers/buttons/ButtonHandler.js";
@@ -23,8 +31,3 @@ ButtonHandler.declareClicksEvents(buttons)
 // Initialize alert
 import Alert from '../../../helpers/alert/Alert.js';
 Alert.set_id('alert-msg')
-
-// Check if movie exist
-import EditMovie from './EditMovie.js';
-EditMovie.get_movie_to_edit()
-
