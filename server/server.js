@@ -77,7 +77,7 @@ io.on('connection', (socket, test) => {
 
 
     socket.on('event', data => { /* … */ });
-    socket.on('disconnect', () => { /* … */ });
+    // socket.on('disconnect', () => { /* … */ });
 
     // Receive room number and return its host
     socket.on('get_room_host_name', (data, callback) => {
@@ -575,7 +575,6 @@ io.on('connection', (socket, test) => {
             })
         }
 
-
         // Delete user room
         UsersRooms.delete_user_room(socket.id)
 
@@ -893,14 +892,17 @@ app.get("/movies/check-movie-exist", auth, async (req, res) => {
 app.get("/rooms/get-rooms", auth, async (req, res) => {
     // const rooms = await Rooms.get_rooms()
 
-    const rooms_data = {}
+    const rooms_data = []
 
     // Count total users
-    let total_users_count = 0
     Object.keys(io.sockets.adapter.rooms).forEach(roomnum => {
         // Since rooms numbers starts with 'room-', will remove that word and stay with just the actual room number
-        const clean_room_number = roomnum.replace('room-', '')
-        rooms_data[clean_room_number] = io.sockets.adapter.rooms[roomnum].users.length
+        // const clean_room_number = roomnum.replace('room-', '')
+        // rooms_data[clean_room_number] = io.sockets.adapter.rooms[roomnum].users.length
+        rooms_data.push({
+            room_number: roomnum,
+            room_users_count: io.sockets.adapter.rooms[roomnum].users.length
+        })
     })
 
     res.status(200).send({

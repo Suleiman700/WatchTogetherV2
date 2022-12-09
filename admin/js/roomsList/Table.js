@@ -20,7 +20,7 @@ class Table {
      * @param _option {boolean}
      * @param _text {string}
      */
-    show_info_row(_option, _text) {
+    show_info_row(_option, _text='') {
         // Delete previous row if found
         $('table tbody tr#table_info_row').remove()
 
@@ -44,10 +44,10 @@ class Table {
     }
 
     /**
-     * Add movie row
-     * @param _movie_data {object}
+     * Add room row
+     * @param _room_data {object}
      */
-    add_row(_movie_data) {
+    add_row(_room_data) {
         const count = this.count_rows()
 
         $("#rooms_table").find('tbody')
@@ -57,25 +57,10 @@ class Table {
                     .text(count)
                 )
                 .append($('<td>')
-                    .text(_movie_data['movie_name'])
+                    .text(_room_data['room_number'])
                 )
                 .append($('<td>')
-                    .text(_movie_data['movie_year'])
-                )
-                .append($('<td>')
-                    .text(_movie_data['movie_genre'])
-                )
-                .append($('<td>')
-                    .text(_movie_data['movie_rating'])
-                )
-                .append($('<td>')
-                    .append($('<i>')
-                        .attr('class', 'fa fa-edit')
-                        .css('cursor', 'pointer')
-                        .click(() => {
-                            window.location.href = `./edit-movie.html?id=${_movie_data['_id']}`;
-                        })
-                    )
+                    .text(_room_data['room_users_count'])
                 )
             );
 

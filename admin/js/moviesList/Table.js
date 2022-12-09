@@ -70,6 +70,7 @@ class Table {
                     .append($('<i>')
                         .attr('class', 'fa fa-edit')
                         .css('cursor', 'pointer')
+                        .text(' Edit')
                         .click(() => {
                             window.location.href = `./edit-movie.html?id=${_movie_data['_id']}`;
                         })

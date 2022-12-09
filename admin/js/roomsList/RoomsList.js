@@ -16,6 +16,19 @@ class RoomsList {
         const request = new Requests('/rooms/get-rooms', 'GET', {})
         const response = await request.send_request()
 
+        if (response['rooms_found']) {
+            // Hide info row
+            Table.show_info_row(false)
+
+            const rooms = response['rooms']
+            for (const room of rooms) {
+                Table.add_row(room)
+            }
+        }
+        else {
+            Table.show_info_row(true, 'No rooms have been found.')
+        }
+
     }
 }
 
