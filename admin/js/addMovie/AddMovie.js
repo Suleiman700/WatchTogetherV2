@@ -12,68 +12,77 @@ import Requests from '../../../helpers/requests/Requests.js'
 
 // Alert
 import Alert from '../../../helpers/alert/Alert.js';
+import Loading from '../../../helpers/loading/Loading.js';
 
 class AddMovie {
     constructor() {}
 
     async add_movie() {
-        // Show alert
-        Alert.set_class('info')
-        Alert.set_text('Please wait...', true)
-        Alert.show_alert(true)
-
         let valid = true
 
         const movie_name = Input_MovieName.get_value()
         Input_MovieName.mark_error(movie_name === undefined)
-        // if (movie_name === undefined) {
-        //     valid = false
-        //     return
-        // }
+        if (movie_name === undefined) {
+            Input_MovieName.focus()
+            valid = false
+            return
+        }
 
         const movie_year = Input_MovieYear.get_value()
         Input_MovieYear.mark_error(movie_year === undefined)
-        // if (movie_year === undefined) {
-        //     valid = false
-        //     return
-        // }
+        if (movie_year === undefined) {
+            Input_MovieYear.focus()
+            valid = false
+            return
+        }
 
         const movie_genre = Select_MovieGenre.get_value()
         Select_MovieGenre.mark_error(movie_genre === undefined)
         if (movie_genre === undefined) {
+            Select_MovieGenre.focus()
             valid = false
             return
         }
 
         const movie_desc = Input_MovieDesc.get_value()
         Input_MovieDesc.mark_error(movie_desc === undefined)
-        // if (movie_desc === undefined) {
-        //     valid = false
-        //     return
-        // }
+        if (movie_desc === undefined) {
+            Input_MovieDesc.focus()
+            valid = false
+            return
+        }
 
         const movie_rating = Select_MovieRating.get_value()
         Select_MovieRating.mark_error(movie_rating === undefined)
-        // if (movie_rating === undefined) {
-        //     valid = false
-        //     return
-        // }
+        if (movie_rating === undefined) {
+            Select_MovieRating.focus()
+            valid = false
+            return
+        }
 
         const movie_poster = Input_MoviePoster.get_value()
         Input_MoviePoster.mark_error(movie_poster === undefined)
-        // if (movie_poster === undefined) {
-        //     valid = false
-        //     return
-        // }
+        if (movie_poster === undefined) {
+            Input_MoviePoster.focus()
+            valid = false
+            return
+        }
 
         const movie_src = Input_MovieSrc.get_value()
         Input_MovieSrc.mark_error(movie_src === undefined)
-        // if (movie_src === undefined) {
-        //     valid = false
-        //     return
-        // }
+        if (movie_src === undefined) {
+            Input_MovieSrc.focus()
+            valid = false
+            return
+        }
+
+        // Hide loading
+        Loading.hide()
 
         if (valid) {
+            // Show loading
+            Loading.show('Please Wait', 'Saving your movie...')
+
             const test = {
                 'movie_name': movie_name,
                 'movie_year': movie_year,
@@ -84,15 +93,21 @@ class AddMovie {
                 'movie_src': movie_src,
             }
 
-
+            // Send request
             const request = new Requests('/movies/add', 'POST', test, 'test')
             const response = await request.send_request()
 
             if (response['state']) {
                 // Show alert
-                Alert.set_class('success')
-                Alert.set_text(response['msg'], false)
-                Alert.show_alert(true)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Great',
+                    html: response['msg'],
+                    showConfirmButton: true,
+                    showDenyButton: false,
+                    showCloseButton: true,
+                    allowOutsideClick: true,
+                })
 
                 // Clear fields
                 Input_MovieName.clear()
@@ -103,9 +118,15 @@ class AddMovie {
             }
             else {
                 // Show alert
-                Alert.set_class('danger')
-                Alert.set_text(response['msg'], false)
-                Alert.show_alert(true)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ops!',
+                    html: response['msg'],
+                    showConfirmButton: true,
+                    showDenyButton: false,
+                    showCloseButton: true,
+                    allowOutsideClick: true,
+                })
             }
         }
 

@@ -12,11 +12,10 @@ import Select_MovieActive from './selects/Select_MovieActive.js';
 // Request
 import Requests from '../../../helpers/requests/Requests.js'
 
-// Alert
-import Alert from '../../../helpers/alert/Alert.js';
-
 // Loading
 import Loading from '../../../helpers/loading/Loading.js';
+import btn_EditMovie from './buttons/Btn_EditMovie.js';
+import btn_DeleteMovie from './buttons/Btn_DeleteMovie.js';
 
 class EditMovie {
     constructor() {}
@@ -79,6 +78,7 @@ class EditMovie {
         const movie_name = Input_MovieName.get_value()
         Input_MovieName.mark_error(movie_name === undefined)
         if (movie_name === undefined) {
+            Input_MovieName.focus()
             valid = false
             return
         }
@@ -86,6 +86,7 @@ class EditMovie {
         const movie_year = Input_MovieYear.get_value()
         Input_MovieYear.mark_error(movie_year === undefined)
         if (movie_year === undefined) {
+            Input_MovieYear.focus()
             valid = false
             return
         }
@@ -93,6 +94,7 @@ class EditMovie {
         const movie_genre = Select_MovieGenre.get_value()
         Select_MovieGenre.mark_error(movie_genre === undefined)
         if (movie_genre === undefined) {
+            Select_MovieGenre.focus()
             valid = false
             return
         }
@@ -100,6 +102,7 @@ class EditMovie {
         const movie_desc = Input_MovieDesc.get_value()
         Input_MovieDesc.mark_error(movie_desc === undefined)
         if (movie_desc === undefined) {
+            Input_MovieDesc.focus()
             valid = false
             return
         }
@@ -107,6 +110,7 @@ class EditMovie {
         const movie_rating = Select_MovieRating.get_value()
         Select_MovieRating.mark_error(movie_rating === undefined)
         if (movie_rating === undefined) {
+            Select_MovieRating.focus()
             valid = false
             return
         }
@@ -114,6 +118,7 @@ class EditMovie {
         const movie_poster = Input_MoviePoster.get_value()
         Input_MoviePoster.mark_error(movie_poster === undefined)
         if (movie_poster === undefined) {
+            Input_MoviePoster.focus()
             valid = false
             return
         }
@@ -121,15 +126,25 @@ class EditMovie {
         const movie_src = Input_MovieSrc.get_value()
         Input_MovieSrc.mark_error(movie_src === undefined)
         if (movie_src === undefined) {
+            Input_MovieSrc.focus()
             valid = false
             return
         }
 
         if (valid) {
+            // Disable buttons
+            btn_EditMovie.enabled(false)
+            btn_DeleteMovie.enabled(false)
+
             // Show alert
-            Alert.set_class('info')
-            Alert.set_text('Please wait...', true)
-            Alert.show_alert(true)
+            Swal.fire({
+                icon: 'info',
+                title: 'Saving Changes',
+                html: 'Please wait while we save your changes...',
+                showConfirmButton: false,
+                showDenyButton: false,
+                allowOutsideClick: false,
+            })
 
             const test = {
                 'movie_id': this.get_url_param(),
@@ -146,18 +161,37 @@ class EditMovie {
             const request = new Requests('/movies/edit', 'POST', test)
             const response = await request.send_request()
 
+            // Hide alert
+            Swal.close()
+
             if (response['state']) {
                 // Show alert
-                Alert.set_class('success')
-                Alert.set_text(response['msg'], false)
-                Alert.show_alert(true)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Great',
+                    html: response['msg'],
+                    showConfirmButton: true,
+                    showDenyButton: false,
+                    showCloseButton: true,
+                    allowOutsideClick: true,
+                })
             }
             else {
                 // Show alert
-                Alert.set_class('danger')
-                Alert.set_text(response['msg'], false)
-                Alert.show_alert(true)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ops!',
+                    html: response['msg'],
+                    showConfirmButton: true,
+                    showDenyButton: false,
+                    showCloseButton: true,
+                    allowOutsideClick: true,
+                })
             }
+
+            // Enable buttons
+            btn_EditMovie.enabled(true)
+            btn_DeleteMovie.enabled(true)
         }
     }
 

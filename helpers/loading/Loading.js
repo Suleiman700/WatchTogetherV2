@@ -7,8 +7,10 @@ class Loading {
         Swal.fire({
             title: `<strong>${_title}</strong>`,
             html: `
-                ${_html}<br><br>
-                ${(_show_spinner===true)?'<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>':''}
+                <div style="overflow: hidden;">
+                    ${_html}<br><br>
+                    ${(_show_spinner===true)?'<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>':''}
+                </div>
             `,
             icon: _icon,
             showCloseButton: _show_close_btn? true:false,

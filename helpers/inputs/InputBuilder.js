@@ -60,5 +60,12 @@ export default class InputBuilder {
         }
     }
 
+    /**
+     * Focus on this element
+     */
+    focus() {
+        document.querySelector(`#${this.parent_id} input#${this.id}`).focus()
+    }
+
 
 }

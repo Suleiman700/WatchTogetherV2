@@ -10,9 +10,9 @@ Header.load()
 import Sidebar from '../components/Sidebar.js'
 Sidebar.load()
 
-// Load footer
-import Footer from '../components/Footer.js'
-Footer.load()
+// // Load footer
+// import Footer from '../components/Footer.js'
+// Footer.load()
 
 // Get rooms from server
 import RoomsList from './RoomsList.js'

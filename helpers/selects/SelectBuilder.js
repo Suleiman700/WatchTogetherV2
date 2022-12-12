@@ -58,4 +58,12 @@ export default class SelectBuilder {
         }
     }
 
+    /**
+     * Focus on this element
+     */
+    focus() {
+        document.querySelector(`#${this.parent_id} select#${this.id}`).focus()
+    }
+
+
 }

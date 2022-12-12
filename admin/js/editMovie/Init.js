@@ -10,9 +10,9 @@ Header.load()
 import Sidebar from '../components/Sidebar.js'
 Sidebar.load()
 
-// Load footer
-import Footer from '../components/Footer.js'
-Footer.load()
+// // Load footer
+// import Footer from '../components/Footer.js'
+// Footer.load()
 
 // Check if movie exist
 import EditMovie from './EditMovie.js';
@@ -27,7 +27,3 @@ import Btn_CloseAfterDeleting from './modals/buttons/Btn_CloseAfterDeleting.js';
 import Btn_CancelDeleteMovie from './modals/buttons/Btn_CancelDeleteMovie.js';
 const buttons = [Btn_EditMovie, Btn_DeleteMovie, Btn_ConfirmDeleteMovie, Btn_CloseAfterDeleting, Btn_CancelDeleteMovie]
 ButtonHandler.declareClicksEvents(buttons)
-
-// Initialize alert
-import Alert from '../../../helpers/alert/Alert.js';
-Alert.set_id('alert-msg')

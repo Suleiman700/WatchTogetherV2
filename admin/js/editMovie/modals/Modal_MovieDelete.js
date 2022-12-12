@@ -55,17 +55,20 @@ class Modal_MovieDelete {
             // Show button
             Btn_CloseAfterDeleting.show_btn(true)
 
-            // Set timeout after deleting
-            // setTimeout(() => {
-            //     // Redirect to movies list
-            //     window.location.href = "./movies-list.html";
-            // }, 1000)
-
+            // Trigger modal on dismiss function to redirect to movies list after deleting the movie
+            this.onDismiss()
         }
         // Movie was not deleted
         else if (!response['movie_deleted']) {
             this.set_body_text('An error occurred while deleting the movie')
         }
+    }
+
+    onDismiss() {
+        $('#modal_delete_movie').on('hidden.bs.modal', function () {
+            // Redirect to movies list
+            window.location.href = "./movies-list.html";
+        });
     }
 }
 

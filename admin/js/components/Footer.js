@@ -5,7 +5,7 @@ class Footer {
 
     load() {
         const html = `
-            <div class="container-fluid pt-4 px-4">
+            <div class="container-fluid pt-4 px-4" style="">
                 <div class="bg-secondary rounded-top p-4">
                     <div class="row">
                         <div class="col-12 text-center">

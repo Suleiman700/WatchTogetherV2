@@ -10,9 +10,9 @@ Header.load()
 import Sidebar from '../components/Sidebar.js'
 Sidebar.load()
 
-// Load footer
-import Footer from '../components/Footer.js'
-Footer.load()
+// // Load footer
+// import Footer from '../components/Footer.js'
+// Footer.load()
 
 // Dashboard stats
 import DashboardStats from './DashboardStats.js'
