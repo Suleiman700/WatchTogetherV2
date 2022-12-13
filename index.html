@@ -139,8 +139,9 @@
                             </div>
                             <div class="navbar-wrap main-menu d-none d-lg-flex">
                                 <ul class="navigation">
+                                    <li><a href="#" onclick="guide()">Tutorial</a></li>
                                     <li><a href="about-us.html">About Us</a></li>
-                                    <li><a href="contact.html">contacts</a></li>
+                                    <li><a href="faq.html">FAQ</a></li>
                                 </ul>
                             </div>
 
@@ -696,7 +697,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="copyright-text text-center">
+                    <div class="copyright-text">
                         <p>Copyright &copy; 2022 All Rights Reserved, Share By <a href="#">Sync Watch</a>.</p>
                     </div>
                 </div>
@@ -822,6 +823,7 @@
 <script src="assets/template_js/aos.js"></script>
 <script src="assets/template_js/plugins.js"></script>
 <script src="assets/template_js/main.js"></script>
+<script src="assets/template_js/stepsjs-1.0.0.min.js"></script>
 
 <!-- NotifyJS -->
 <script src="./assets/libs/notifyjs/jquery.notify.min.js"></script>
@@ -835,6 +837,79 @@
 <script src="./assets/js/Script.js" type="module"></script>
 <!-- Swipe -->
 <script src="./assets/js/Swipe.js" type="module"></script>
+
+<script>
+    function guide() {
+        // Scroll to the first guide element
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#username").offset().top
+        }, 300);
+
+        var steps = [
+            {
+                elementId: 'username',
+                title: '<span style="text-decoration: underline;">Step 1</span>',
+                description: 'To start watching first you will need to enter a nickname.<br>This will be visible to other people in room.',
+                triggerNext: 'change'
+            },
+            {
+                elementId: 'room_number',
+                title: 'Step 2',
+                description: 'Enter room number - can be any number.<br>This is used to join other friends rooms.<br>For example enter: 123456',
+                triggerNext: 'change'
+            },
+            {
+                elementId: 'avatar_pick',
+                title: 'Step 3',
+                description: 'Pick an avatar (optional).<br>This will be visible to other people in room.',
+                triggerNext: 'click'
+            },
+            {
+                elementId: 'random_room_number',
+                title: 'Hint',
+                description: 'You can click this button to generate a random room number.',
+                triggerNext: 'click'
+            },
+            {
+                elementId: 'join_room',
+                title: 'Step 4',
+                description: 'Click this button to join the room.',
+                triggerNext: 'click'
+            },
+        ];
+        var options = {
+            duration: 200,
+            interval: 5,
+            styles: {
+                frame: {
+                    customClass: 'demo-frame',
+                    borderWidth: 3,
+                    borderColor: '#ff0000'
+                },
+                hint: {
+                    customClass: 'demo-hint',
+                    borderWidth: 1,
+                    borderColor: '#00ff00',
+                    borderRadius: 5,
+                    backgroundColor: '#dbffdb',
+                }
+            }
+        };
+        new StepsJs(steps, options);
+    }
+
+
+</script>
+
+<style>
+    .demo-hint {
+        left: 50% !important;
+        width: fit-content;
+        transform: translate(-50%);
+        background: rgb(10 8 8) !important;
+        border: 1px solid rgb(254 0 0) !important;
+    }
+</style>
 
 </body>
 </html>
